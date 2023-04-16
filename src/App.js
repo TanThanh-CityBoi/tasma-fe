@@ -8,9 +8,11 @@ import React from "react";
 // import ViewProjectModal from "./pages/Project/Modal/ViewProjectModal";
 // import Loading from "./components/Loading/Loading";
 import { AuthTemplate } from "./templates/AuthTemplate/AuthTemplate";
+import Login from './pages/Auth/Login'
+import Register from './pages/Auth/Register'
 
-const Login = React.lazy(() => import("./pages/Auth/Login"));
-const Register = React.lazy(() => import("./pages/Auth/Register"));
+// const Login = React.lazy(() => import("./pages/Auth/Login"));
+// const Register = React.lazy(() => import("./pages/Auth/Register"));
 
 function App() {
   return (
@@ -21,38 +23,11 @@ function App() {
       <CreateTaskModal />
       <ViewTaskModal /> */}
       <Routes>
-        <Route path="/" element={<AuthTemplate />}>
+        {/* <Routes path="/" element={<AuthTemplate />}> */}
           <Route index element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-        </Route>
-
-        {/* <JiraBugsTemplate
-            exact
-            path="/project/board/:id"
-            Component={Board}
-            title="Kanban Board"
-          />
-          <JiraBugsTemplate
-            exact
-            path="/project-management/settings"
-            Component={ProjectSetting}
-            title="Project Settings"
-          />
-
-          <JiraBugsTemplate
-            exact
-            path="/project-management"
-            Component={ProjectManagement}
-            title="Project Management"
-          />
-
-          <JiraBugsTemplate
-            exact
-            path="/account"
-            Component={Account}
-            title="Account"
-          /> */}
+        {/* </Routes> */}
       </Routes>
     </BrowserRouter>
   );
