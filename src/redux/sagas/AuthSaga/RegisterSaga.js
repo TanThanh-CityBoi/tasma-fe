@@ -1,6 +1,7 @@
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import { authService } from "../../../services/AuthService/AuthService";
 import { STATUS_CODE } from "../../../util/config/constants";
+import { history } from "../../../util/libs/history";
 import { openNotification } from "../../../util/notification/notification";
 import { REGISTER_SAGA } from "../../constants/AuthConst";
 import { DISPLAY_LOADING, HIDE_LOADING, LOADING_DELAY } from "../../constants/LoadingConst";
@@ -27,7 +28,7 @@ function* registerSaga(action) {
         } else {
             // if account created successfully (status = 201)
             if (status === STATUS_CODE.CREATED) {
-                // history.push('/login');
+                history.push('/login');
                 openNotification('success', 'Success!', 'Your account has been successfully created!');
             }
         }

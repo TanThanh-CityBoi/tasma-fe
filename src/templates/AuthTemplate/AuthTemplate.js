@@ -1,19 +1,14 @@
 import React from 'react';
-import { Outlet } from "react-router-dom";
+import { Route } from 'react-router-dom';
 
-const AuthTemplate = () => {
-  return (
-    <>
-      <div
-        style={{
-          backgroundImage: "url(./images/auth_background.png)",
-          height: window.innerHeight,
-        }}
-      >
-        <Outlet></Outlet>
-      </div>
-    </>
-  );
-};
+export const AuthTemplate = (props) => {
+    let { Component, ...restRoute } = props;
 
-export default React.memo(AuthTemplate);
+    return <Route {...restRoute} render={(propsRoute) => {
+        return <>
+            <div style={{backgroundImage: 'url(./images/auth_background.png)', height: window.innerHeight}}>
+                <Component {...propsRoute} />
+            </div>
+        </>
+    }} />
+}

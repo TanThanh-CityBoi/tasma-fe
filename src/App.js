@@ -1,64 +1,49 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React from "react";
-import "./App.css";
-
-// import ViewTaskModal from "./pages/Project/Modal/ViewTaskModal";
-// import CreateTaskModal from "./pages/Project/Modal/CreateTaskModal";
-// import EditProjectDrawer from "./pages/Project/Drawer/EditProjectDrawer";
-// import ViewProjectModal from "./pages/Project/Modal/ViewProjectModal";
-// import Loading from "./components/Loading/Loading";
-
-import JiraBugsTemplate from "./templates/JiraBugsTemplate/JiraBugsTemplate";
-import AuthTemplate from "./templates/AuthTemplate/AuthTemplate";
-
-import ProjectManagement from "./pages/Project/ProjectManagement/ProjectManagement";
-import ProjectSetting from "./pages/Project/Settings/ProjectSetting";
-import Register from "./pages/Auth/Register";
-import Account from "./pages/Auth/Account";
-import Board from "./pages/Project/Board/Board";
-import Login from "./pages/Auth/Login";
+import './App.css';
+import { Router, Switch } from 'react-router-dom';
+import Login from './pages/Auth/Login';
+import { AuthTemplate } from './templates/AuthTemplate/AuthTemplate';
+import Register from './pages/Auth/Register';
+import Loading from './components/GlobalSetting/Loading/Loading';
+import { history } from './util/libs/history';
+import { JiraBugsTemplate } from './templates/JiraBugsTemplate/JiraBugsTemplate';
+import Board from './pages/Project/Board/Board';
+import ProjectSetting from './pages/Project/Settings/ProjectSetting';
+import ProjectManagement from './pages/Project/ProjectManagement/ProjectManagement';
+import ViewProjectModal from './pages/Project/Modal/ViewProjectModal';
+import EditProjectDrawer from './pages/Project/Drawer/EditProjectDrawer';
+import CreateTaskModal from './pages/Project/Modal/CreateTaskModal';
+import ViewTaskModal from './pages/Project/Modal/ViewTaskModal';
+import Account from './pages/Auth/Account';
 
 function App() {
   return (
-    <BrowserRouter>
-      {/* <Loading />
+    <Router history={history}>
+      <Loading />
       <ViewProjectModal />
       <EditProjectDrawer />
       <CreateTaskModal />
-      <ViewTaskModal /> */}
-      <Routes>
-        <Route path="/" element={<AuthTemplate />}>
-          <Route index element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
+      <ViewTaskModal />
 
-        <Route
-          path="/project/board/:id"
-          element={<JiraBugsTemplate title="Kanban Board" />}
-        >
-          <Route index element={<Board />} />
-        </Route>
+      <Switch>
 
-        <Route
-          path="/project-management"
-          element={<JiraBugsTemplate title="Project Management" />}
-        >
-          <Route index element={<ProjectManagement />} />
-        </Route>
+        {/* AuthTemplate */}
+        <AuthTemplate exact path='/login' Component={Login} />
+        <AuthTemplate exact path='/register' Component={Register} />
 
-        <Route
-          path="/project-management/settings"
-          element={<JiraBugsTemplate title="Project Settings" />}
-        >
-          <Route index element={<ProjectSetting />} />
-        </Route>
+        {/* Jira Bugs Template */}
+        <JiraBugsTemplate exact path="/project/board/:id" Component={Board} title="Kanban Board" />
+        <JiraBugsTemplate exact path="/project-management/settings" Component={ProjectSetting} title="Project Settings" />
 
-        <Route path="/account" element={<JiraBugsTemplate title="Account" />}>
-          <Route index element={<Account />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        {/* Project Management */}
+        <JiraBugsTemplate exact path="/project-management" Component={ProjectManagement} title="Project Management" />
+
+        {/* Project Management */}
+        <JiraBugsTemplate exact path="/account" Component={Account} title="Account" />
+
+        <AuthTemplate path='/' Component={Login} />
+        {/* <JiraBugsTemplate exact path="/" Component={Board} title="Kanban Board" /> */}
+      </Switch>
+    </Router>
   );
 }
 

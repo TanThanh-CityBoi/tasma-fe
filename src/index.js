@@ -6,6 +6,7 @@ import store from "./redux/configStore";
 import { Provider } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { config } from "./config";
+import "antd/dist/antd.css";
 
 ReactDOM.render(
   <React.StrictMode>
