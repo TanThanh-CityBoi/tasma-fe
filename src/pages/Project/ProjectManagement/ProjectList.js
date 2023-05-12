@@ -92,7 +92,7 @@ export default function ProjectList(props) {
                             return { label: user.login, value: user.id, key: index }
                         })
                     }
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', minWidth: '100px' }}
                     onSelect={(value, option) => {
                         setUsernameSearch(option.label);
                         dispatch({
@@ -146,8 +146,8 @@ export default function ProjectList(props) {
             dataIndex: 'projectCategoryName',
             key: 'projectCategoryName',
             filters: [
-                { text: 'Web Application', value: 'Web Application' },
-                { text: 'Mobile Application', value: 'Mobile Application' },
+                { text: 'Personal Project', value: 'Personal Project' },
+                { text: 'Group Project', value: 'Group Project' },
             ],
             filteredValue: filteredInfo.projectCategoryName || null,
             onFilter: (value, record) => record.projectCategoryName.includes(value),

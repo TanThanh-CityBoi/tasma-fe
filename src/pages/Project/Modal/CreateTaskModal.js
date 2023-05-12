@@ -13,6 +13,7 @@ function CreateTaskModal(props) {
     const { visible, projects } = useSelector(state => state.CreateTaskReducer);
     const { members } = useSelector(state => state.ListMembersReducer);
     const [usersAssign, setUsersAssign] = useState([])
+    const [projectSelected, setProjectSelected] = useState(projects[0])
 
     const [timeTracking, setTimeTracking] = useState({
         timeTrackingSpent: 0,
@@ -31,7 +32,7 @@ function CreateTaskModal(props) {
     useEffect(() => {
         dispatch({
             type: GET_LIST_MEMBERS_SAGA,
-            projectId: 33,
+            projectId: projectSelected?.id || 1,
         })
     }, [])
 
@@ -218,7 +219,7 @@ const CreateTaskWithFormik = withFormik({
     mapPropsToValues: (props) => {
         return {
             name: '',
-            projectId: 33,
+            projectId: 1,
             type: 'New Task',
             priority: 'High',
             timeTrackingSpent: 0,
