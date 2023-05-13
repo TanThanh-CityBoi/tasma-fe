@@ -4,7 +4,7 @@ const initialState = {
     dupplicateProjectName: '',
     message: '',
     projects: [],
-    project: {id: 33, name: 'ReactJS Jira Clone'},
+    project: {id: 1, name: 'Default Project'},
 }
 
 const ProjectReducer = (state = initialState, action) => {
