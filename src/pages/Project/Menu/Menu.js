@@ -14,27 +14,33 @@ export default function Menu(props) {
                     <img src={ReactLogo} alt="logo_reactjs.jpg" style={{ width: '100%' }} />
                 </div>
                 <div className="account-info">
-                    <p style={{ color: '#42526E', fontWeight: 'bold' }}>ReactJS Jira Clone</p>
-                    <p style={{ color: '#5E6C84' }}>Software Project</p>
+                    <p style={{ color: '#42526E', fontWeight: 'bold' }}>TanThanh</p>
+                    <p style={{ color: '#5E6C84' }}>Personal workspace</p>
                 </div>
             </div>
             <div className="control">
                 <NavLink to={`/project/board/${project?.id}`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
                     <div>
                         <i className="fa fa-credit-card" />
-                        <span className="ml-2">Kanban Board</span>
+                        <span className="ml-2">Board</span>
                     </div>
                 </NavLink>
-                {/* <NavLink to="/project/settings" style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                <NavLink to={`/project/calendar`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
                     <div>
-                        <i className="fa fa-cog" />
-                        <span className="ml-2">Project Settings</span>
+                        <i class="fa fa-calendar"></i>
+                        <span className="ml-2">Calendar</span>
                     </div>
-                </NavLink> */}
+                </NavLink>
                 <NavLink to="/project-management" style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
                     <div>
-                        <i className="fa fa-cog" />
-                        <span className="ml-2">Project Management</span>
+                        <i class="fa fa-list"></i>
+                        <span className="ml-2">Projects</span>
+                    </div>
+                </NavLink>
+                <NavLink to={`/project/list`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div>
+                        <i class="fa fa-chart-line"></i>
+                        <span className="ml-2">Dashboard</span>
                     </div>
                 </NavLink>
             </div >

@@ -3,9 +3,15 @@ import { Table, Button, Space, Tag, Avatar, Popconfirm, Popover, AutoComplete } 
 import { NavLink } from 'react-router-dom';
 import { FormOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_MEMBER_TO_PROJECT_SAGA, DELETE_MEMBER_FROM_PROJECT_SAGA, DELETE_PORJECT_SAGA, GET_ALL_PROJECTS_SAGA, GET_PROJECT_DETAIL_SAGA } from '../../../redux/constants/ProjectConst';
+import { 
+    ADD_MEMBER_TO_PROJECT_SAGA, 
+    DELETE_MEMBER_FROM_PROJECT_SAGA, 
+    DELETE_PORJECT_SAGA, 
+    GET_ALL_PROJECTS_SAGA, 
+    GET_PROJECT_DETAIL_SAGA 
+} from '../../../redux/constants/ProjectConst';
 import { SEARCH_USER_SAGA } from '../../../redux/constants/UserConst';
-import dateFormat, { masks } from "dateformat";
+import dateFormat from "dateformat";
 
 export default function ProjectList(props) {
 
@@ -67,7 +73,6 @@ export default function ProjectList(props) {
         });
     };
 
-    // const text = <span>Title</span>;
     const content = (record, index) => {
         // console.log('record: ', record);
         return (
@@ -311,7 +316,7 @@ export default function ProjectList(props) {
                     <NavLink to="/project-management/settings">
                         <button className="btn btn-success btn-sm" type="button">
                             <i className="fa fa-plus"></i>
-                            <span style={{ marginLeft: 4 }}>Create New Project</span>
+                            <span style={{ marginLeft: 4 }}>New Project</span>
                         </button>
                     </NavLink>
                 </Space>

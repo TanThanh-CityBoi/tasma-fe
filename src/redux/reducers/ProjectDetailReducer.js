@@ -1,7 +1,7 @@
 const initialState = {
     visibleModalViewProject: false,
     visibleDrawerEditProject: false,
-    project: {id: 33, name: 'ReactJS Jira Clone'},
+    project: {id: 33, name: 'Project Default'},
 }
 
 const ProjectDetailReducer = (state = initialState, action) => {

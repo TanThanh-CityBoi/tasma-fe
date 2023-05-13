@@ -8,7 +8,7 @@ import SideBar from '../../pages/Project/SideBar/SideBar';
 export const JiraBugsTemplate = (props) => {
     const { Component, ...restParam } = props;
     const {project} = useSelector(state => state.ProjectReducer)
-    const id = props.computedMatch.params.id || 33;
+    const id = props.computedMatch.params.id || null;
     return <Route path={restParam.path} render={(propsRoute) => {
         return <>
             <div className="jira">
@@ -22,10 +22,10 @@ export const JiraBugsTemplate = (props) => {
                     <Header title={restParam.title} />
 
                     <h4 style={{ color: '#172B4D', fontWeight: 'bold' }} className='mt-3'>
-                        {restParam.title} {(restParam.title === 'Kanban Board') ? (` - ${project?.name}`) : ''}
+                        {restParam.title} {(restParam.title === 'Board') ? (` - ${project?.name}`) : ''}
                     </h4>
-                    <span className="text-danger font-weight-bold">{(restParam.title === 'Kanban Board' && id === '33') ? 'Đây là project demo từ hệ thống!' : ''}</span>
-                    <p className="mb-4 text-primary font-weight-bold">{(restParam.title === 'Kanban Board' && id === '33') ? 'Bạn có thể vào mục Project Management để tạo hoặc chuyển đển project khác!' : ''}</p>
+                    <span className="text-danger font-weight-bold">{(restParam.title === 'Board' && id === 'null') ? 'Empty Project' : ''}</span>
+                    <p className="mb-4 text-primary font-weight-bold">{(restParam.title === 'Board' && id === 'null') ? 'Create new project in tab Project Management' : ''}</p>
 
                     <Component {...propsRoute} />
 

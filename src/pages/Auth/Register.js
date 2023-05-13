@@ -21,7 +21,7 @@ function Register(props) {
     return (
         <form className="text-center p-5" style={{ maxWidth: 400, margin: 'auto', marginTop: 130 }} onSubmit={handleSubmit}>
             <div>
-                <h3 style={{ fontWeight: 'bold', fontSize: 35 }}>Jira Bugs Register</h3>
+                <h3 style={{ fontWeight: 'bold', fontSize: 35 }}>Register</h3>
                 <div className="d-flex mt-4" >
                     <Input style={{ width: '100%' }} name="username" type="username" size="large" placeholder="Username" prefix={<UserOutlined />}
                         onChange={handleChange}

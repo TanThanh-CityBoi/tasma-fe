@@ -1,9 +1,8 @@
+import { withFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { GET_ALL_PROJECT_CATEGORY_SAGA } from '../../../redux/constants/ProjectCategoryConst';
-import { withFormik } from 'formik';
-import * as Yup from 'yup';
 import { CREATE_PROJECT_SAGA, DUPPLICATE_PROJECT_NAME } from '../../../redux/constants/ProjectConst';
 import Swal from 'sweetalert2'
 
@@ -68,12 +67,12 @@ function ProjectSetting(props) {
             <div style={{ width: '60%' }} className="mt-4">
                 <div className="mb-3">
                     <label className="form-label">Name</label>
-                    <input className="form-control" name="name" placeholder="ReactJS Jira Clone" required="required" onChange={handleChange} />
+                    <input className="form-control" name="name" placeholder="New project name" required="required" onChange={handleChange} />
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <label className="form-label">URL</label>
-                    <input className="form-control" name="url" placeholder="https://github.com/quanghavan29/jira_bugs_clone_reactjs_nestjs" required="required" onChange={handleChange} />
-                </div>
+                    <input className="form-control" name="url" placeholder="https://github.com" required="required" onChange={handleChange} />
+                </div> */}
                 <div className="mb-3">
                     <label className="form-label">Category</label>
                     <select className="form-control" name="projectCategoryId" onChange={handleChange}>
@@ -84,7 +83,7 @@ function ProjectSetting(props) {
                     <label className="form-label">Description</label>
                     <Editor
                         name="description"
-                        initialValue="<p>A Jira clone app built with ReactJS and NestJS - by quanghavan29.</p>"
+                        initialValue="<p>Task management website built with ReactJS and NestJS</p>"
                         init={{
                             height: 300,
                             menubar: false,
@@ -122,12 +121,10 @@ const CreateProjectWithFormik = withFormik({
         return {
             name: '',
             url: '',
-            description: '<p>A Jira clone app built with ReactJS and NestJS - by quanghavan29.</p>',
+            description: '<p>Task management website built with ReactJS and NestJS</p>',
             projectCategoryId: props.projectCategories[0]?.id,
         }
     },
-    // validationSchema: Yup.object().shape({
-    // }),
 
     handleSubmit: (values, { setSubmitting, props }) => {
         setSubmitting(true);
@@ -142,7 +139,7 @@ const CreateProjectWithFormik = withFormik({
         });
     },
 
-    displayName: 'Jira Bugs Create Project',
+    displayName: 'Tasma Create Project',
 })(ProjectSetting);
 
 const mapStateToProps = (state) => {

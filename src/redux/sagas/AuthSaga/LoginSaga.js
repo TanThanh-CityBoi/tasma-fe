@@ -1,6 +1,7 @@
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import { LOGIN_DISPATCH_REDUCER, LOGIN_SAGA } from "../../constants/AuthConst";
 import { authService } from '../../../services/AuthService/AuthService';
+import { projectService } from "../../../services/ProjectService/ProjectService";
 import { DISPLAY_LOADING, HIDE_LOADING, LOADING_DELAY } from "../../constants/LoadingConst";
 import { ACCESS_TOKEN, STATUS_CODE, USER_LOGIN_LOCAL_STORAGE } from "../../../util/config/constants";
 import { history } from "../../../util/libs/history";
@@ -29,7 +30,13 @@ function* loginSaga(action) {
             localStorage.setItem(USER_LOGIN_LOCAL_STORAGE, JSON.stringify(userLogin.data));;
         }
 
-        history.push('/project/board/33');
+        const projectRes = yield call(() => projectService.getAllProjects());
+        if (projectRes.status === STATUS_CODE.SUCCESS) {
+            const firstProjectId = projectRes.data[0]?.id || null;
+            firstProjectId ? history.push(`/project/board/${firstProjectId}`) :  history.push('/project-management');
+        }else{
+            history.push('/project-management');
+        }
     } catch (error) {
         console.log('Error Login Saga: ', error);   
         openNotification('error', 'Login Fail!', 'Username or password incorrect!')

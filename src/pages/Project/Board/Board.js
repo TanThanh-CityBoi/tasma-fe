@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_PROJECT_BOARD_SAGA } from '../../../redux/constants/ProjectConst';
-import { GET_ALL_TASKS_BY_PROJECT_SAGA, GET_TASK_DETAIL_SAGA, UPDATE_TASK_SAGA, UPDATE_TASK_STATUS_SAGA } from '../../../redux/constants/TaskConst';
+import { GET_ALL_TASKS_BY_PROJECT_SAGA, GET_TASK_DETAIL_SAGA, UPDATE_TASK_STATUS_SAGA } from '../../../redux/constants/TaskConst';
 // import Content from './Content'
 // import Infor from './Infor'
 
@@ -43,13 +43,6 @@ export default function Board(props) {
             projectId: id,
         })
     }, [])
-
-    // const renderUsersAssign = (usersAssign) => {
-    //     return usersAssign.map((user, index) => {
-    //         return 
-    //     })
-
-    // }
 
     const renderAllTask = (tasks) => {
         return tasks.map((task, index) => {
@@ -96,19 +89,6 @@ export default function Board(props) {
             </li>
         });
     }
-
-    // const renderAllTaskByStatus = (task) => {
-    //     return (
-    //         <div className="card" style={{ width: '17rem', height: 'auto', paddingBottom: 10 }}>
-    //             <div className="card-header">
-    //                 {task.status} <span>{task.items.length}</span>
-    //             </div>
-    //             <ul className="list-group list-group-flush">
-    //                 {renderAllTask(task.items)}
-    //             </ul>
-    //         </div>
-    //     )
-    // }
 
     const handleDragEnd = (result) => {
         let {source, destination, draggableId} = result;

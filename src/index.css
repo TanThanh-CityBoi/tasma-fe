@@ -10,7 +10,7 @@
   position: fixed;
   height: 100vh;
   z-index: 10;
-  background-color: rgb(7, 71, 166);
+  background-color: #6675df;
   width: 4%;
   transition: 0.2s;
 }

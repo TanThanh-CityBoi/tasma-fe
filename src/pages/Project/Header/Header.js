@@ -43,17 +43,15 @@ export default function Header(props) {
             <div>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb" style={{ backgroundColor: 'white' }}>
+                        <li className="breadcrumb-item">TanThanh workspace</li>
                         <li className="breadcrumb-item">Project</li>
-                        <li className="breadcrumb-item">ReactJS Jira Clone</li>
                         <li className="breadcrumb-item active" aria-current="page">
                             {props.title}
                         </li>
                     </ol>
                 </nav>
             </div>
-            <div>
-
-            </div>
+            <div></div>
             <div>
                 <Dropdown overlay={menu}>
                     {/* <Button icon={<Avatar src="https://joeschmoe.io/api/v1/random" style={{ width: 30, height: 30 }} />} style={{ padding: '0px 6px', height: 36 }}>
@@ -68,9 +66,6 @@ export default function Header(props) {
                         <span className="ml-2 p-1">{userLogin.login.toLocaleUpperCase()}</span><DownOutlined />
                     </button>
                 </Dropdown>
-            </div>
-            <div>
-
             </div>
         </div>
     )
