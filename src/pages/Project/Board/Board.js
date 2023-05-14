@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_PROJECT_BOARD_SAGA } from '../../../redux/constants/ProjectConst';
-import { GET_ALL_TASKS_BY_PROJECT_SAGA, GET_TASK_DETAIL_SAGA, UPDATE_TASK_STATUS_SAGA } from '../../../redux/constants/TaskConst';
+import { GET_ALL_TASKS_BY_PROJECT_SAGA, GET_TASK_DETAIL_SAGA, UPDATE_TASK_STATUS_SAGA, SHOW_CREATE_TASK_MODAL_SAGA } from '../../../redux/constants/TaskConst';
 // import Content from './Content'
 // import Infor from './Infor'
 
@@ -229,6 +229,18 @@ export default function Board(props) {
                 </div>
                 <div style={{ marginLeft: 20 }} className="text ml-5">Only My Issues</div>
                 <div style={{ marginLeft: 20 }} className="text">Recently Updated</div>
+
+                <div style={{ marginLeft: 20 }} className="ml-5"> 
+                    <button className="btn btn-primary btn-sm" type="button"
+                    onClick={() => {
+                        dispatch({
+                            type: SHOW_CREATE_TASK_MODAL_SAGA,
+                        })
+                    }}>
+                        <i className="fa fa-plus"></i>
+                        <span style={{ marginLeft: 4 }}>New Issues</span>
+                    </button>
+                </div>
             </div>
 
             <div className="content" style={{ display: 'flex' }}>

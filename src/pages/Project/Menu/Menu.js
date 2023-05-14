@@ -6,6 +6,8 @@ import ReactLogo from '../../../logo.svg';
 export default function Menu(props) {
 
     const {project} = useSelector(state => state.ProjectReducer);
+    const projects = useSelector(state => state.ProjectReducer.projects);
+
 
     return (
         <div className="menu">
@@ -46,14 +48,15 @@ export default function Menu(props) {
             </div >
             <div className="feature">
                 <div className="mt-3">
-                    <i className="fa fa-truck" />
-                    <span className="ml-2">Releases</span>
+                    <span className="ml-2"># general</span>
                 </div>
-                <div className="mt-3">
-                    <i className="fa fa-equals" />
-                    <span className="ml-2">Issues and filters</span>
-                </div>
-                <div className="mt-3">
+                {projects.map((item, index)=> {
+                   return  <div className="mt-3" key={index}>
+                                <span className="ml-2"># {item.name}</span>
+                            </div>
+                })}
+                
+                {/* <div className="mt-3">
                     <i className="fa fa-paste" />
                     <span className="ml-2">Pages</span>
                 </div>
@@ -64,7 +67,7 @@ export default function Menu(props) {
                 <div className="mt-3">
                     <i className="fa fa-box" />
                     <span className="ml-2">Components</span>
-                </div>
+                </div> */}
             </div>
         </div >
     )
