@@ -5,7 +5,6 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [usersSaved, setUsersSaved] = useState([{}]);
-
   useEffect(() => {
     // Kiểm tra xem có thông tin người dùng trong localStorage hay không
     const currentUserFirebase = localStorage.getItem('currentUserFirebase');
@@ -15,7 +14,7 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
   return (
-    <UserContext.Provider value={{ currentUser , setCurrentUser, usersSaved, setUsersSaved }}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser, usersSaved, setUsersSaved }}>
       {children}
     </UserContext.Provider>
   );
