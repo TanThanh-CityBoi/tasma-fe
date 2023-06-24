@@ -222,8 +222,8 @@ export default function RoomList() {
     <Collapse ghost defaultActiveKey={['1']}>
       <PanelStyled header='Group chat' key='1' onClick={() => handleFetchRooms()}>
         {rooms.map((room) => (
-          <Row key={room.id} onClick={() => setSelectedRoom(room)}>
-            <Col span={15}> {room.name} </Col>
+          <Row style={{color: 'white'}} key={room.id} onClick={() => setSelectedRoom(room)} >
+            <Col span={14}> {room.name} </Col>
             <Col span={2}>
               <Button
                 type='text'
@@ -241,7 +241,7 @@ export default function RoomList() {
           className='add-room'
           onClick={handleAddRoom}
         >
-          Add &nbsp;&nbsp;
+          Add new room &nbsp;&nbsp;
         </Button>
       </PanelStyled>
     </Collapse>

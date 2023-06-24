@@ -9,10 +9,10 @@ export default function ChatRoom() {
   return (
     <div>
       <Row>
-        <Col span={8}>
+        <Col span={6}>
           <SideBar />
         </Col>
-        <Col span={16}>
+        <Col span={18}>
           {selectedRoom ? (
             <ChatWindow />
           ) : (
