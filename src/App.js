@@ -16,6 +16,7 @@ import ProjectSetting from './pages/Project/Settings/ProjectSetting';
 import Board from './pages/Project/Board/Board';
 import Account from './pages/Auth/Account';
 import Login from './pages/Auth/Login';
+import Chart from './pages/Project/Chart/Chart';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
         {/* Project Management */}
         <JiraBugsTemplate exact path="/project-management" Component={ProjectManagement} title="Project Management" />
         <JiraBugsTemplate exact path="/project-management/settings" Component={ProjectSetting} title="Project Settings" />
-
+        <JiraBugsTemplate exact path="/chart" Component={Chart} title="Dashboard" />
         {/* Project Management */}
         <JiraBugsTemplate exact path="/account" Component={Account} title="Account" />
 
