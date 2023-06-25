@@ -33,7 +33,7 @@ export default function Chart() {
               <MemberChart />
             </div>
           </Col>
-          <Col className="gutter-row" span={12}>
+          {/* <Col className="gutter-row" span={12}>
             <div style={style}>
               <LineChart />
             </div>
@@ -42,7 +42,7 @@ export default function Chart() {
             <div style={style}>
               <DeadlineChart />
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </>
     );
