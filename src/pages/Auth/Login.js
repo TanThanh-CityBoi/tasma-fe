@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Button, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
-import { withFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginAction } from '../../redux/actions/AuthAction/LoginAction';
 
 //for login to firebase
@@ -14,12 +14,12 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from '../Project/ChatApp/context/userContext';
 
 
-function Login(props) {
+function Login() {
     //login to firebase:
     const {currentUser, setCurrentUser} = useContext(UserContext);
     const history = useHistory();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+
     const handleLoginToFirebase = (email, password) => {
         firebase
         .auth()
@@ -31,7 +31,6 @@ function Login(props) {
             const newCurrentUser = userCredential.user;
             setCurrentUser(newCurrentUser);
             console.log(userCredential.user.uid);
-            console.log(userCredential.user.email);
             console.log(password);
             const currentUserFirebase = {
                 userEmail: email,
@@ -45,42 +44,53 @@ function Login(props) {
         alert(error.message);
       });
     };
-    const handleSubmitLogin = () => {
+    const handleSubmitLogin = (values) => {
+        const {email, password} = values;
+        dispatch(loginAction(email, password));
         handleLoginToFirebase(email, password);
     }
 
-    const {
-        errors,
-        handleChange,
-        handleSubmit,
-        // values,
-        // touched,
-        // handleBlur,
-    } = props;
+    const formik = useFormik({
+        validateOnChange: true,
+        validateOnBlur: true,
+        validateOnMount: false,
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().email('Invalid email').required('Email is required!'),
+            password: Yup.string().min(6, 'Your password must be at least 6 characters!'),
+        }),
+        onSubmit: (values) => {
+            handleSubmitLogin(values)
+        },
+    });
 
     return (
-        <form className="text-center p-5" style={{ maxWidth: 400, margin: 'auto', marginTop: 130 }} onSubmit={handleSubmit}>
+        <form className="text-center p-5" style={{ maxWidth: 400, margin: 'auto', marginTop: 130 }} onSubmit={formik.handleSubmit}>
             <div>
                 <h3 style={{ fontWeight: 'bold', fontSize: 35 }}>Tasma Login</h3>
                 <div className="d-flex mt-4" >
-                    <Input style={{ width: '100%' }} name="username" size="large" placeholder="Username" prefix={<UserOutlined />}
-                        // onChange={ handleChange}
-                        onChange={(e) => setEmail(e.target.value)}
+                    <Input style={{ width: '100%' }} name="email" size="large" placeholder="Email" prefix={<UserOutlined />}
+                        onChange={formik.handleChange}
                     />
                 </div>
-                <div className="d-flex text-danger">{errors.username}</div>
+                {formik.errors.email && formik.touched.email && (
+                    <div className="d-flex text-danger">{formik.errors.email}</div>
+                )}
                 <div className="d-flex mt-3">
                     <Input style={{ width: '100%' }} name="password" type="password" size="large" placeholder="Password" prefix={<LockOutlined />}
-                        // onChange={handleChange}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={formik.handleChange}
                     />
                 </div>
-                <div className="d-flex text-danger">{errors.password}</div>
+                {formik.errors.password && formik.touched.password && (
+                    <div className="d-flex text-danger">{formik.errors.password}</div>
+                )}                
                 <div className="mt-3">
                     <a href="forgot-password">Forgot your password?</a>
                 </div>
-                <Button onClick={handleSubmitLogin}
-                 htmlType="submit" size="large" style={{ width: '100%', backgroundColor: 'rgb(102,117,223)', color: '#fff', fontWeight: 'bold' }} className="mt-3">
+                <Button htmlType="submit" size="large" style={{ width: '100%', backgroundColor: 'rgb(102,117,223)', color: '#fff', fontWeight: 'bold' }} className="mt-3">
                     LOGIN
                 </Button>
                 <div className="mt-3">Not registered? <NavLink to="register" className="mt-3">Create an account</NavLink></div>
@@ -89,22 +99,4 @@ function Login(props) {
     )
 }
 
-const LoginWithFormik = withFormik({
-    mapPropsToValues: () => ({
-        username: '',
-        password: '',
-    }),
-    validationSchema: Yup.object().shape({
-        username: Yup.string().isEmail('Invalid email').required('Username is required!'),
-        password: Yup.string().min(4, 'Your password must be at least 4 characters!'),
-    }),
-
-    handleSubmit: (values, { setSubmitting, props }) => {
-        let { username, password } = values;
-        setSubmitting(true);
-        props.dispatch(loginAction(username, password));
-    },
-    displayName: 'Jira Bugs Login',
-})(Login);
-
-export default connect()(LoginWithFormik);
+export default Login;
