@@ -142,14 +142,14 @@ const ChatBot = () => {
   };
   return (
     <WrapperStyled>
-      <HeaderStyled>
+      {/* <HeaderStyled>
         <div className='header__info'>
           <p className='header__title'>{'Chat with GPT'}</p>
           <span className='header__description'>
             {'Hỗ trợ giải đáp mọi thắc mắc'}
           </span>
         </div>
-      </HeaderStyled>
+      </HeaderStyled> */}
       <ContentStyled>
         <MessageListStyled ref={messageListRef}>
           {loading ? <LoadingChatBot /> : messageList.map((message, index) => (

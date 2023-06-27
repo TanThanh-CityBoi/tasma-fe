@@ -45,8 +45,8 @@ export default function Header(props) {
             <div>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb" style={{ backgroundColor: 'white' }}>
-                        <li className="breadcrumb-item">TanThanh workspace</li>
-                        <li className="breadcrumb-item">Project</li>
+                        <li className="breadcrumb-item">Tasma</li>
+                        {/* <li className="breadcrumb-item">Project</li> */}
                         <li className="breadcrumb-item active" aria-current="page">
                             {props.title}
                         </li>

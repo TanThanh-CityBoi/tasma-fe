@@ -38,7 +38,6 @@ function Login() {
             }
             // Lưu thông tin người dùng vào localStorage
             localStorage.setItem('currentUserFirebase', JSON.stringify(currentUserFirebase));
-            history.push("/chatapp"); ///
       })
       .catch((error) => {
         alert(error.message);

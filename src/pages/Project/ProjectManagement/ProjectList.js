@@ -306,20 +306,23 @@ export default function ProjectList(props) {
 
     return (
         <div className="mt-5">
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <Space style={{ marginBottom: 16 }}>
-                    <Button onClick={setNameSort}>Sort Name</Button>
-                    <Button onClick={clearFilters}>Clear filters</Button>
-                    <Button onClick={clearAll}>Clear filters and sorters</Button>
-                </Space>
-                <Space>
-                    <NavLink to="/project-management/settings">
-                        <button className="btn btn-success btn-sm" type="button">
-                            <i className="fa fa-plus"></i>
-                            <span style={{ marginLeft: 4 }}>New Project</span>
-                        </button>
-                    </NavLink>
-                </Space>
+            <div className='info' style={{ display: 'flex', marginBottom: '36px' }}>
+                    <div className="search-block">
+                        <i className="fa fa-search mt-1" />
+                        <input className="search" />
+                    </div>
+                    <Button style={{ marginLeft: 25 }} onClick={setNameSort}>Sort Name</Button>
+                    <Button style={{ marginLeft: 25 }} onClick={clearFilters}>Clear filters</Button>
+                    <Button style={{ marginLeft: 25 }} onClick={clearAll}>Clear filters and sorters</Button>
+
+                    <div style={{ marginLeft: 30 }}>
+                        <NavLink to="/project-management/settings">
+                            <button className="btn btn-success btn-sm" type="button">
+                                <i className="fa fa-plus"></i>
+                                <span style={{ marginLeft: 4 }}>New Project</span>
+                            </button>
+                        </NavLink>
+                    </div>
             </div>
             <Table columns={columns} rowKey={"id"} dataSource={dataConvert} onChange={handleChange} />
         </div>

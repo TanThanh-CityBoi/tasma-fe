@@ -92,8 +92,9 @@ function CreateTaskModal(props) {
                         <p>Status</p>
                         <select name="status" className="form-control" onChange={handleChange}>
                             <option value="BACKLOG">BACKLOG</option>
-                            <option value="SELECTED FOR DEVELOPMENT">SELECTED FOR DEVELOPMENT</option>
                             <option value="IN PROGRESS">IN PROGRESS</option>
+                            <option value="UNDER REVIEW">UNDER REVIEW</option>
+                            <option value="CANCELLED">CANCELLED</option>
                             <option value="DONE">DONE</option>
                         </select>
                     </div>

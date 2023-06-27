@@ -3,30 +3,38 @@ import React, { useEffect } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_PROJECT_BOARD_SAGA } from '../../../redux/constants/ProjectConst';
-import { GET_ALL_TASKS_BY_PROJECT_SAGA, GET_TASK_DETAIL_SAGA, UPDATE_TASK_STATUS_SAGA, SHOW_CREATE_TASK_MODAL_SAGA } from '../../../redux/constants/TaskConst';
-// import Content from './Content'
-// import Infor from './Infor'
+import { 
+    GET_ALL_TASKS_BY_PROJECT_SAGA, 
+    GET_TASK_DETAIL_SAGA, 
+    UPDATE_TASK_STATUS_SAGA, 
+    SHOW_CREATE_TASK_MODAL_SAGA 
+} from '../../../redux/constants/TaskConst';
+
 
 export default function Board(props) {
 
     let { project } = useSelector(state => state.ProjectReducer);
-    let { backLog, selectedForDev, inProgress, done } = useSelector(state => state.TaskReducer.tasks);
+    let { backLog, inProgress, underReview, cancelled, done } = useSelector(state => state.TaskReducer.tasks);
     const taksList = [
         {
             status: 'BACKLOG',
-            items: backLog.items,
-        },
-        {
-            status: 'SELECTED FOR DEVELOPMENT',
-            items: selectedForDev.items,
+            items: backLog?.items,
         },
         {
             status: 'IN PROGRESS',
-            items: inProgress.items,
+            items: inProgress?.items,
+        },
+        {
+            status: 'UNDER REVIEW',
+            items: underReview?.items,
+        },
+        {
+            status: 'CANCELLED',
+            items: cancelled?.items,
         },
         {
             status: 'DONE',
-            items: done.items,
+            items: done?.items,
         }
     ]
 
@@ -131,7 +139,7 @@ export default function Board(props) {
                                     className="card"
                                     style={{ width: '17rem', height: 'auto', paddingBottom: 10 }}>
                                     <div className="card-header">
-                                        {taskListDetail.status} <span>{taskListDetail.items.length}</span>
+                                        {taskListDetail.status} <span>{taskListDetail?.items?.length}</span>
                                     </div>
                                     <ul
                                         ref={provided.innerRef}
@@ -139,7 +147,7 @@ export default function Board(props) {
                                         key={index}
                                         className="list-group list-group-flush">
                                         {
-                                            taskListDetail.items.map((task, index) => {
+                                            taskListDetail?.items?.map((task, index) => {
                                                 return <Draggable key={task.id.toString()} index={index} draggableId={task.id.toString()}>
                                                     {(provided) => {
                                                         return (

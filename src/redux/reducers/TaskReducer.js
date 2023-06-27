@@ -6,12 +6,16 @@ const initialState = {
             status: 'BACKLOG',
             items: items,
         },
-        selectedForDev: {
-            status: 'SELECTED FOR DEVELOPMENT',
-            items: items,
-        },
         inProgress: {
             status: 'IN PROGRESS',
+            items: items,
+        },
+        underReview: {
+            status: 'UNDER REVIEW',
+            items: items,
+        },
+        cancelled: {
+            status: 'CANCELLED',
             items: items,
         },
         done: {

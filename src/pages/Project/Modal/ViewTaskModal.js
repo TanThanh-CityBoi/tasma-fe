@@ -328,8 +328,9 @@ function ViewTaskModal(props) {
                                         })
                                     }}>
                                         <Option value="BACKLOG">BACKLOG</Option>
-                                        <Option value="SELECTED FOR DEVELOPMENT">SELECTED FOR DEVELOPMENT</Option>
                                         <Option value="IN PROGRESS">IN PROGRESS</Option>
+                                        <Option value="UNDER REVIEW">UNDER REVIEW</Option>
+                                        <Option value="CANCELLED">CANCELLED</Option>
                                         <Option value="DONE">DONE</Option>
                                     </Select>
                                 </div>

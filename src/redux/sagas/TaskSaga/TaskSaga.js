@@ -73,8 +73,9 @@ function* getAllTasksByProjectSaga(action) {
         const { projectId } = action;
 
         const backLog = yield call(() => taskService.getAllTasksByProject(projectId, 'BACKLOG'));
-        const selectedForDev = yield call(() => taskService.getAllTasksByProject(projectId, 'SELECTED FOR DEVELOPMENT'));
         const inProgress = yield call(() => taskService.getAllTasksByProject(projectId, 'IN PROGRESS'));
+        const underReview = yield call(() => taskService.getAllTasksByProject(projectId, 'UNDER REVIEW'));
+        const cancelled = yield call(() => taskService.getAllTasksByProject(projectId, 'CANCELLED'));
         const done = yield call(() => taskService.getAllTasksByProject(projectId, 'DONE'));
 
         // console.log('backLog', backLog);
@@ -87,13 +88,17 @@ function* getAllTasksByProjectSaga(action) {
                 status: 'BACKLOG',
                 items: backLog.data,
             },
-            selectedForDev: {
-                status: 'SELECTED FOR DEVELOPMENT',
-                items: selectedForDev.data,
-            },
             inProgress: {
                 status: 'IN PROGRESS',
                 items: inProgress.data,
+            },
+            underReview: {
+                status: 'UNDER REVIEW',
+                items: underReview.data,
+            },
+            cancelled: {
+                status: 'CANCELLED',
+                items: cancelled.data,
             },
             done: {
                 status: 'DONE',

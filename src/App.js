@@ -39,8 +39,8 @@ function App() {
           <AuthTemplate exact path='/register' Component={Register} />
 
           <JiraBugsTemplate exact path="/chart" Component={Chart} title="Dashboard" />
-          <JiraBugsTemplate exact path="/chatapp" Component={Chat} title="Chat" />
-          <JiraBugsTemplate exact path="/chatbot" Component={ChatBot} title="ChatBot" />
+          <JiraBugsTemplate exact path="/chatapp" Component={Chat} title="Chat Room" />
+          <JiraBugsTemplate exact path="/chatbot" Component={ChatBot} title="Ai Support" />
 
           {/* Jira Bugs Template */}
           <JiraBugsTemplate exact path="/project/board/:id" Component={Board} title="Board" />
