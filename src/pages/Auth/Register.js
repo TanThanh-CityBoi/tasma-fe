@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
@@ -7,7 +7,60 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { REGISTER_SAGA } from '../../redux/constants/AuthConst';
 
+//for login to firebase
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { UserContext } from '../Project/ChatApp/context/userContext';
+
 function Register(props) {
+
+    //login to firebase:
+    const {currentUser, setCurrentUser} = useContext(UserContext);
+    const history = useHistory();
+
+
+    const handleSignUpForFirebase = (email, password) => {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Đăng ký thành công, lưu thông tin người dùng vào state
+            setCurrentUser(userCredential.user);
+            console.log("Thong tin dang ky: ")
+            console.log(userCredential.user.uid);
+            console.log(userCredential.user.email);
+            addMember(userCredential.user.email, userCredential.user.uid);
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+    };
+    // Hàm thêm thành viên
+    const addMember = (email, firebaseId) => {
+        // Tham chiếu đến bảng "members" trong Firebase Realtime Database
+        const membersRef = firebase.database().ref('members');
+
+        // Thực hiện thêm thành viên mới
+        const newMemberRef = membersRef.push();
+        newMemberRef.set({
+        email: email,
+        firebaseId: firebaseId,
+        })
+        .then(() => {
+            console.log('Thêm thành viên thành công');
+        })
+        .catch((error) => {
+            console.log('Lỗi khi thêm thành viên:', error);
+        });
+    };
+    const handleInputChange = (event) => {
+        const { username, password, rePassword } = event.target;
+        if (password === rePassword) {
+            handleSignUpForFirebase(username, password);
+        }
+      };
+
 
     const {
         errors,

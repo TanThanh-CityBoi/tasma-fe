@@ -45,6 +45,18 @@ export default function Menu(props) {
                         <span className="ml-2">Dashboard</span>
                     </div>
                 </NavLink>
+                <NavLink to={`/chatapp`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div>
+                        <i class="fa fa-comments"></i>
+                        <span className="ml-2">Chat Room</span>
+                    </div>
+                </NavLink>
+                <NavLink to={`/chart`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div>
+                        <i class="fa fa-chart-line"></i>
+                        <span className="ml-2">Chart (Dashboard)</span>
+                    </div>
+                </NavLink>
             </div >
             <div className="feature">
                 <div className="mt-3">
@@ -55,7 +67,7 @@ export default function Menu(props) {
                                 <span className="ml-2"># {item.name}</span>
                             </div>
                 })}
-                
+
                 {/* <div className="mt-3">
                     <i className="fa fa-paste" />
                     <span className="ml-2">Pages</span>

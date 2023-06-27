@@ -21,7 +21,9 @@ export default function Header(props) {
     const handleMenuClick = (e) => {
         console.log('click', e);
     }
-
+    const handleSignOut = () => {
+        localStorage.removeItem('currentUserFirebase');
+    }
     const menu = (
         <Menu onClick={handleMenuClick}>
             <Menu.Item key="1" style={{ display: 'flex' }}>
@@ -32,7 +34,7 @@ export default function Header(props) {
 
             <Menu.Item key="2">
                 <NavLink to="/login">
-                    <div><i className="fa fa-sign-out-alt"></i><span className="ml-2 pl-1">Logout</span></div>
+                    <div><i className="fa fa-sign-out-alt"></i><span className="ml-2 pl-1" >Logout</span></div>
                 </NavLink>
             </Menu.Item>
         </Menu>
