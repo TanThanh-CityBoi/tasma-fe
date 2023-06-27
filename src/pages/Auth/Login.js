@@ -39,7 +39,7 @@ function Login(props) {
             }
             // Lưu thông tin người dùng vào localStorage
             localStorage.setItem('currentUserFirebase', JSON.stringify(currentUserFirebase));
-            history.push("/chatapp");
+            history.push("/chatapp"); ///
       })
       .catch((error) => {
         alert(error.message);
@@ -95,7 +95,7 @@ const LoginWithFormik = withFormik({
         password: '',
     }),
     validationSchema: Yup.object().shape({
-        username: Yup.string().required('Username is required!'),
+        username: Yup.string().isEmail('Invalid email').required('Username is required!'),
         password: Yup.string().min(4, 'Your password must be at least 4 characters!'),
     }),
 
