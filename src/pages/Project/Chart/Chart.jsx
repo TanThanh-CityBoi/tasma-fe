@@ -5,7 +5,7 @@ import LineChart from './LineChart';
 import MemberChart from './MemberChart';
 import DeadlineChart from './DeadlineChart';
 
-const style: React.CSSProperties = {
+const style = {
   background: "white",
   padding: "10px",
   marginLeft: "15px",

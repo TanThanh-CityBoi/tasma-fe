@@ -39,7 +39,7 @@ export default function Menu(props) {
                         <span className="ml-2">Projects</span>
                     </div>
                 </NavLink>
-                <NavLink to={`/project/list`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                <NavLink to={`/chart`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
                     <div>
                         <i class="fa fa-chart-line"></i>
                         <span className="ml-2">Dashboard</span>
@@ -49,12 +49,6 @@ export default function Menu(props) {
                     <div>
                         <i class="fa fa-comments"></i>
                         <span className="ml-2">Chat Room</span>
-                    </div>
-                </NavLink>
-                <NavLink to={`/chart`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
-                    <div>
-                        <i class="fa fa-chart-line"></i>
-                        <span className="ml-2">Chart (Dashboard)</span>
                     </div>
                 </NavLink>
             </div >

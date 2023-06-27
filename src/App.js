@@ -14,6 +14,8 @@ import Loading from './components/GlobalSetting/Loading/Loading';
 import ProjectManagement from './pages/Project/ProjectManagement/ProjectManagement';
 import ProjectSetting from './pages/Project/Settings/ProjectSetting';
 import Board from './pages/Project/Board/Board';
+import Calendar from './pages/Project/Calendar/Calender';
+
 import Account from './pages/Auth/Account';
 import Login from './pages/Auth/Login';
 import Chat from './pages/Project/ChatApp/Chat';
@@ -39,6 +41,7 @@ function App() {
           <JiraBugsTemplate exact path="/chatapp" Component={Chat} title="Chat" />
           {/* Jira Bugs Template */}
           <JiraBugsTemplate exact path="/project/board/:id" Component={Board} title="Board" />
+          <JiraBugsTemplate exact path="/project/calendar" Component={Calendar} title="Calendar" />
 
           {/* Project Management */}
           <JiraBugsTemplate exact path="/project-management" Component={ProjectManagement} title="Project Management" />
@@ -48,12 +51,6 @@ function App() {
           <JiraBugsTemplate exact path="/account" Component={Account} title="Account" />
 
           <AuthTemplate path='/' Component={Login} />
-
-          {/* Project Management */}
-          <JiraBugsTemplate exact path="/account" Component={Account} title="Account" />
-
-          <AuthTemplate path='/' Component={Login} />
-          {/* <JiraBugsTemplate exact path="/" Component={Board} title="Board" /> */}
         </Switch>
       </UserProvider>
     </Router>
