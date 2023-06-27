@@ -11,13 +11,12 @@ export default function SideBar(props) {
         < div className="sideBar text-center" >
             <div className="">
                 <div className="text-white mt-4">
-                    <Avatar>T</Avatar>               
+                    <i className="fab fa-jira" style={{ fontSize: 28, cursor: 'pointer' }} />
                 </div>
+
                 <div className="text-white mt-4">
-                    <Avatar>W</Avatar>               
-                </div>
-                <div className="text-white mt-4">
-                    <Avatar>S</Avatar>               
+                    {/* <Avatar>T</Avatar>                */}
+                    <i className="fa fa-search" style={{ fontSize: 18, cursor: 'pointer' }} />
                 </div>
                 
                 <div className="text-white">

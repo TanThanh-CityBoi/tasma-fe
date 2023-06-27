@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import ReactLogo from '../../../logo.svg';
+
 
 export default function Menu(props) {
 
@@ -13,11 +13,11 @@ export default function Menu(props) {
         <div className="menu">
             <div className="account">
                 <div className="avatar">
-                    <img src={ReactLogo} alt="logo_reactjs.jpg" style={{ width: '100%' }} />
+                    <img src='logo.png' alt="logo.png" style={{ width: 50, height: 50, marginBottom: 2 }} />
                 </div>
                 <div className="account-info">
-                    <p style={{ color: '#42526E', fontWeight: 'bold' }}>TanThanh</p>
-                    <p style={{ color: '#5E6C84' }}>Personal workspace</p>
+                    <p style={{ color: '#42526E', fontWeight: 'bold' }}>Tasma</p>
+                    <p style={{ color: '#5E6C84' }}>Task management</p>
                 </div>
             </div>
             <div className="control">
@@ -45,35 +45,22 @@ export default function Menu(props) {
                         <span className="ml-2">Dashboard</span>
                     </div>
                 </NavLink>
+            </div >
+            <div className="feature">
+
                 <NavLink to={`/chatapp`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
                     <div>
                         <i class="fa fa-comments"></i>
                         <span className="ml-2">Chat Room</span>
                     </div>
                 </NavLink>
-            </div >
-            <div className="feature">
-                <div className="mt-3">
-                    <span className="ml-2"># general</span>
-                </div>
-                {projects.map((item, index)=> {
-                   return  <div className="mt-3" key={index}>
-                                <span className="ml-2"># {item.name}</span>
-                            </div>
-                })}
 
-                {/* <div className="mt-3">
-                    <i className="fa fa-paste" />
-                    <span className="ml-2">Pages</span>
-                </div>
-                <div className="mt-3">
-                    <i className="fa fa-location-arrow" />
-                    <span className="ml-2">Reports</span>
-                </div>
-                <div className="mt-3">
-                    <i className="fa fa-box" />
-                    <span className="ml-2">Components</span>
-                </div> */}
+                <NavLink to="/chatbot" style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div style={{ marginBottom: '10px' }}>
+                        <i className="fas fa-question-circle"></i>
+                        <span className="ml-2">AI Support</span>
+                    </div>
+                </NavLink>
             </div>
         </div >
     )

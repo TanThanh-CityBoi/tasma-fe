@@ -65,7 +65,7 @@ export default function Header(props) {
                                 <Avatar icon={<i className="fa fa-user-alt"></i>} /> : <Avatar src={userLogin.imageUrl} style={{ width: 30, height: 30 }} />
                             }
                         </i>
-                        <span className="ml-2 p-1">{userLogin.login.toLocaleUpperCase()}</span><DownOutlined />
+                        <span className="ml-2 p-1">{userLogin.login}</span><DownOutlined />
                     </button>
                 </Dropdown>
             </div>

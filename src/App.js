@@ -15,6 +15,7 @@ import ProjectManagement from './pages/Project/ProjectManagement/ProjectManageme
 import ProjectSetting from './pages/Project/Settings/ProjectSetting';
 import Board from './pages/Project/Board/Board';
 import Calendar from './pages/Project/Calendar/Calender';
+import ChatBot from './pages/Project/Chatbot/Chatbot'
 
 import Account from './pages/Auth/Account';
 import Login from './pages/Auth/Login';
@@ -39,6 +40,8 @@ function App() {
 
           <JiraBugsTemplate exact path="/chart" Component={Chart} title="Dashboard" />
           <JiraBugsTemplate exact path="/chatapp" Component={Chat} title="Chat" />
+          <JiraBugsTemplate exact path="/chatbot" Component={ChatBot} title="ChatBot" />
+
           {/* Jira Bugs Template */}
           <JiraBugsTemplate exact path="/project/board/:id" Component={Board} title="Board" />
           <JiraBugsTemplate exact path="/project/calendar" Component={Calendar} title="Calendar" />
