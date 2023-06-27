@@ -207,17 +207,6 @@ export default function RoomList() {
     }
   };
 
-  const mockPersons = [
-    { id: 1, name: "Person 1" },
-    { id: 2, name: "Person 2" },
-    { id: 3, name: "Person 3" },
-  ];
-
-  const handleAddPerson = () => {
-    // setIsAddRoomVisible(true);
-    console.log("add more room")
-  };
-
   return (
     <Collapse ghost defaultActiveKey={['1']}>
       <PanelStyled header='Group chat' key='1' onClick={() => handleFetchRooms()}>

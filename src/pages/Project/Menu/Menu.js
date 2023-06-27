@@ -51,6 +51,12 @@ export default function Menu(props) {
                         <span className="ml-2">Chat Room</span>
                     </div>
                 </NavLink>
+                <NavLink to={`/chart`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div>
+                        <i class="fa fa-chart-line"></i>
+                        <span className="ml-2">Chart (Dashboard)</span>
+                    </div>
+                </NavLink>
             </div >
             <div className="feature">
                 <div className="mt-3">

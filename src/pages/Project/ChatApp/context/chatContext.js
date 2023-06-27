@@ -1,4 +1,4 @@
-import React, { createContext, useRef, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import emailjs, { init } from "@emailjs/browser";
 
 export const ChatContext = createContext();
