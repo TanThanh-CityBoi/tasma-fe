@@ -13,7 +13,7 @@ export default function Menu(props) {
         <div className="menu">
             <div className="account">
                 <div className="avatar">
-                    <img src='logo.png' alt="logo.png" style={{ width: 50, height: 50, marginBottom: 2 }} />
+                    <img src='/logo.png' alt="logo.png" style={{ width: 50, height: 50, marginBottom: 2 }} />
                 </div>
                 <div className="account-info">
                     <p style={{ color: '#42526E', fontWeight: 'bold' }}>Tasma</p>
