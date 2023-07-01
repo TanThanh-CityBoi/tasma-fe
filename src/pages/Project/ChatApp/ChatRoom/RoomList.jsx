@@ -137,9 +137,9 @@ export default function RoomList() {
     }
   };
   const handleAddRoom = () => {
-    const roomName = prompt('Nhập tên phòng chat mới:');
+    const roomName = prompt('Enter the new room name: ');
     if (roomName) {
-      console.log("Tên phòng mới là: " + roomName);
+      console.log("New room is: " + roomName);
       addRoom(roomName);
     }
   };
@@ -209,7 +209,7 @@ export default function RoomList() {
 
   return (
     <Collapse ghost defaultActiveKey={['1']}>
-      <PanelStyled header='Group chat' key='1' onClick={() => handleFetchRooms()}>
+      <PanelStyled header='Rooms' key='1' onClick={() => handleFetchRooms()}>
         {rooms.map((room) => (
           <Row style={{color: 'white'}} key={room.id} onClick={() => setSelectedRoom(room)} >
             <Col span={14}> {room.name} </Col>

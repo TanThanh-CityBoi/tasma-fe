@@ -1,0 +1,157 @@
+<!-- import React from 'react';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import ReactLogo from '../../../logo.svg';
+import { Button, Collapse, Typography } from 'antd';
+import { PlusSquareOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
+import { AppContext } from '../../../context/AppProvider';
+
+const { Panel } = Collapse;
+
+const PanelStyled = styled(Panel)`
+    && {
+        .ant-collapse-item {
+            padding: 0;
+        }
+    }
+    &&& {
+    .ant-collapse-expand-icon {
+        padding: 0;
+    }
+    .ant-collapse-header {
+        padding: 0;
+      }
+
+    .ant-collapse-content-box {
+      padding: 0 0 0 20px;
+    }
+
+    .add-room {
+      padding: 0;
+    }
+  }
+`;
+
+const LinkStyled = styled(NavLink)`
+  display: block;
+  margin-bottom: 5px;
+`;
+
+export default function Menu(props) {
+
+    const { project } = useSelector(state => state.ProjectReducer);
+    const projects = useSelector(state => state.ProjectReducer.projects);
+
+    const { rooms, setIsAddRoomVisible, setSelectedRoomId, selectedRoomId } =
+        React.useContext(AppContext);
+
+    const handleAddRoom = () => {
+        setIsAddRoomVisible(true);
+    };
+    const handleCollapseChange = (key) => {
+        setSelectedRoomId('1');
+    };
+    return (
+        <div className="menu">
+            <div className="account">
+                <div className="avatar">
+                    <img src={ReactLogo} alt="logo_reactjs.jpg" style={{ width: '100%' }} />
+                </div>
+                <div className="account-info">
+                    <p style={{ color: '#42526E', fontWeight: 'bold' }}>TanThanh</p>
+                    <p style={{ color: '#5E6C84' }}>Personal workspace</p>
+                </div>
+            </div>
+            <div className="control">
+                <NavLink to={`/project/board/${project?.id}`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div style={{ marginBottom: '10px' }} >
+                        <i className="fa fa-credit-card" />
+                        <span className="ml-2">Board</span>
+                    </div>
+                </NavLink>
+                <NavLink to={`/project/calendar`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div style={{ marginBottom: '10px' }}>
+                        <i class="fa fa-calendar"></i>
+                        <span className="ml-2">Calendar</span>
+                    </div>
+                </NavLink>
+                <NavLink to="/project-management" style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div style={{ marginBottom: '10px' }}>
+                        <i class="fa fa-list"></i>
+                        <span className="ml-2">Projects</span>
+                    </div>
+                </NavLink>
+                <Collapse ghost defaultActiveKey={['0']} expandIconPosition='end' onChange={handleCollapseChange}>
+                    <PanelStyled
+
+                        header={
+                            <NavLink to="/chatroom" style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary" onClick={() => setSelectedRoomId('1')}>
+                                <div>
+                                    <i class="fa fa-comment"></i>
+                                    <span className="ml-2">ChatRoom</span>
+                                </div>
+                            </NavLink>}
+                        key='1'
+                        collapsible='icon'
+
+                    >
+                        {rooms.map((room) => (
+                            <LinkStyled
+                                to={"/chatroom"}
+                                key={room.id}
+                                onClick={() => setSelectedRoomId(room.id)}
+                                style={{ color: selectedRoomId === room.id && window.location.pathname.split('/').at(1) === 'chatroom' ? '#007bff' : 'black' }}
+                            >
+                                {room.name}
+                            </LinkStyled>
+                        ))}
+                        <Button
+                            type='text'
+                            icon={<PlusSquareOutlined />}
+                            className='add-room'
+                            onClick={handleAddRoom}
+                        >
+                            Add room
+                        </Button>
+                    </PanelStyled>
+                </Collapse>
+                <NavLink to="/chatbot" style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div style={{ marginBottom: '10px' }}>
+                        <i className="fas fa-question-circle"></i>
+                        <span className="ml-2">Chatbot</span>
+                    </div>
+                </NavLink>
+                <NavLink to={`/project/list`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div style={{ marginBottom: '10px' }}>
+                        <i class="fa fa-chart-line"></i>
+                        <span className="ml-2">Dashboard</span>
+                    </div>
+                </NavLink>
+            </div >
+            <div className="feature">
+                <div className="mt-3">
+                    <span className="ml-2"># general</span>
+                </div>
+                {projects.map((item, index) => {
+                    return <div className="mt-3" key={index}>
+                        <span className="ml-2"># {item.name}</span>
+                    </div>
+                })}
+
+                {/* <div className="mt-3">
+                    <i className="fa fa-paste" />
+                    <span className="ml-2">Pages</span>
+                </div>
+                <div className="mt-3">
+                    <i className="fa fa-location-arrow" />
+                    <span className="ml-2">Reports</span>
+                </div>
+                <div className="mt-3">
+                    <i className="fa fa-box" />
+                    <span className="ml-2">Components</span>
+                </div> */}
+            </div>
+        </div >
+    )
+} -->

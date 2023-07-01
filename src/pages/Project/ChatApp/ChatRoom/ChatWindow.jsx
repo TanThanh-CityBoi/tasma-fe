@@ -521,14 +521,14 @@ export default function ChatWindow() {
                   ref={inputRef}
                   onChange={handleInputChange}
                   onPressEnter={handleOnSubmit}
-                  placeholder="Nhập tin nhắn..."
+                  placeholder="Input message..."
                   bordered={false}
                   autoComplete="off"
                   required
                 />
               </Form.Item>
               <Button type="primary" onClick={handleOnSubmit}>
-                Gửi
+                SEND
               </Button>
             </FormStyled>
           </ContentStyled>

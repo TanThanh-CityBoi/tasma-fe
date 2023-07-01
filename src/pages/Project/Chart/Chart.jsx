@@ -1,9 +1,10 @@
 import React from 'react'
 import TaskChart from './TaskChart';
 import { Col, Divider, Row } from 'antd';
-import LineChart from './LineChart';
 import MemberChart from './MemberChart';
-import DeadlineChart from './DeadlineChart';
+import PriorityChart from './PriorityChart';
+import StatusChart from './StatusChart';
+import TimeChart from './TimeChart';
 
 const style = {
   background: "white",
@@ -33,16 +34,16 @@ export default function Chart() {
               <MemberChart />
             </div>
           </Col>
-          {/* <Col className="gutter-row" span={12}>
+          <Col className="gutter-row" span={12}>
             <div style={style}>
-              <LineChart />
+              <PriorityChart />
             </div>
           </Col>
           <Col className="gutter-row" span={12}>
             <div style={style}>
-              <DeadlineChart />
+              <TimeChart />
             </div>
-          </Col> */}
+          </Col>
         </Row>
       </>
     );

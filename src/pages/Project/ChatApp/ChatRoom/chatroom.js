@@ -17,7 +17,7 @@ export default function ChatRoom() {
             <ChatWindow />
           ) : (
             <Alert
-              message="Hãy chọn phòng"
+              message="Please select a chat room"
               type="info"
               showIcon
               style={{ margin: 5 }}
