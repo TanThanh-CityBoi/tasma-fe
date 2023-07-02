@@ -63,56 +63,72 @@ function ProjectSetting(props) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div style={{ width: '60%' }} className="mt-4">
-                <div className="mb-3">
-                    <label className="form-label">Name</label>
-                    <input className="form-control" name="name" placeholder="New project name" required="required" onChange={handleChange} />
-                </div>
-                {/* <div className="mb-3">
-                    <label className="form-label">URL</label>
-                    <input className="form-control" name="url" placeholder="https://github.com" required="required" onChange={handleChange} />
-                </div> */}
-                <div className="mb-3">
-                    <label className="form-label">Category</label>
-                    <select className="form-control" name="projectCategoryId" onChange={handleChange}>
-                        {renderProjectCategories()}
-                    </select>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Description</label>
-                    <Editor
-                        name="description"
-                        initialValue="<p>Task management website built with ReactJS and NestJS</p>"
-                        init={{
-                            height: 300,
-                            menubar: false,
-                            plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount'
-                            ],
-                            toolbar: 'undo redo | formatselect | ' +
-                                'bold italic backcolor | alignleft aligncenter ' +
-                                'alignright alignjustify | bullist numlist outdent indent | ' +
-                                'removeformat | help',
-                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                        }}
-                        onEditorChange={handleEditorChange}
-                    />
-                </div>
-                <button className="btn btn-primary" type="submit" onSubmit={handleSubmit}>
-                    Save
-                </button>
-                <button type="button" className="btn btn-secondary ml-3"
-                    onClick={() => {
-                        props.history.goBack();
-                    }}>
-                    Cancel
-                </button>
-            </div>
-        </form>
-    )
+       <form onSubmit={handleSubmit}>
+          <div style={{ width: "60%" }} className="mt-4">
+             <div className="mb-3">
+                <label className="form-label">Name</label>
+                <input
+                   className="form-control"
+                   name="name"
+                   placeholder="New project name"
+                   required="required"
+                   onChange={handleChange}
+                />
+             </div>
+             <div className="mb-3">
+                <label className="form-label">URL</label>
+                <input
+                   className="form-control"
+                   name="url"
+                   placeholder="https://github.com"
+                   required="required"
+                   onChange={handleChange}
+                />
+             </div>
+             <div className="mb-3">
+                <label className="form-label">Category</label>
+                <select className="form-control" name="projectCategoryId" onChange={handleChange}>
+                   {renderProjectCategories()}
+                </select>
+             </div>
+             <div className="mb-3">
+                <label className="form-label">Description</label>
+                <Editor
+                   name="description"
+                   initialValue="<p>Task management website built with ReactJS and NestJS</p>"
+                   init={{
+                      height: 300,
+                      menubar: false,
+                      plugins: [
+                         "advlist autolink lists link image charmap print preview anchor",
+                         "searchreplace visualblocks code fullscreen",
+                         "insertdatetime media table paste code help wordcount",
+                      ],
+                      toolbar:
+                         "undo redo | formatselect | " +
+                         "bold italic backcolor | alignleft aligncenter " +
+                         "alignright alignjustify | bullist numlist outdent indent | " +
+                         "removeformat | help",
+                      content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                   }}
+                   onEditorChange={handleEditorChange}
+                />
+             </div>
+             <button className="btn btn-primary" type="submit" onSubmit={handleSubmit}>
+                Save
+             </button>
+             <button
+                type="button"
+                className="btn btn-secondary ml-3"
+                onClick={() => {
+                   props.history.goBack();
+                }}
+             >
+                Cancel
+             </button>
+          </div>
+       </form>
+    );
 }
 
 const CreateProjectWithFormik = withFormik({
