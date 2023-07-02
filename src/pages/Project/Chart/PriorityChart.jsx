@@ -64,7 +64,6 @@ const PriorityChart = () => {
 
   return (
     <div>
-      <p>Task Count by Priority</p>
       <Bar
         data={chartData}
         options={{

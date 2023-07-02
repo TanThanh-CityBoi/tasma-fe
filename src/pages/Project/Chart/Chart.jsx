@@ -4,7 +4,8 @@ import { Col, Divider, Row } from 'antd';
 import MemberChart from './MemberChart';
 import PriorityChart from './PriorityChart';
 import StatusChart from './StatusChart';
-import TimeChart from './TimeChart';
+import TaskCountChart from './TaskCountChart';
+import TaskStatusChart from './TaskStatusChart';
 
 const style = {
   background: "white",
@@ -14,7 +15,7 @@ const style = {
   maxWidth: "80vh",
   height: "35vh",
   display: "block",
-  border: "3px solid wheat",
+  border: "2px solid wheat",
   borderRadius: "10px"
 };
 
@@ -26,7 +27,7 @@ export default function Chart() {
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col className="gutter-row" span={12}>
             <div style={style}>
-              <TaskChart />
+              <TaskStatusChart />
             </div>
           </Col>
           <Col className="gutter-row" span={12}>
@@ -41,7 +42,7 @@ export default function Chart() {
           </Col>
           <Col className="gutter-row" span={12}>
             <div style={style}>
-              <TimeChart />
+              <TaskCountChart />
             </div>
           </Col>
         </Row>
