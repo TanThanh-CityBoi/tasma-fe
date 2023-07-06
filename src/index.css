@@ -483,3 +483,24 @@
 .estimate-time {
   font-size: 14px;
 }
+
+
+
+.bg-status-BACKLOG{
+  background-color: #c4c5c6 !important;
+}
+.bg-status-IN_PROGRESS{
+  background-color: #62a0ce !important;
+}
+
+.bg-status-UNDER_REVIEW{
+  background-color: yellow !important;
+}
+
+.bg-status-CANCELLED{
+  background-color: rgba(255, 0, 0, 0.726) !important;
+}
+
+.bg-status-DONE{
+  background-color: #5fb03e !important;
+}

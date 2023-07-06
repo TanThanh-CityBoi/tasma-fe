@@ -147,10 +147,10 @@ function CreateTaskModal(props) {
                         />
                         <div className="row">
                            <div className="col-6 text-left font-weight-bold">
-                              {timeTracking.timeTrackingSpent}h logged
+                              {timeTracking.timeTrackingSpent}h spent
                            </div>
                            <div className="col-6 text-right font-weight-bold">
-                              {timeTracking.timeTrackingRemaining}h logged
+                              {timeTracking.timeTrackingRemaining}h remaining
                            </div>
                         </div>
                      </div>
@@ -159,15 +159,14 @@ function CreateTaskModal(props) {
                      <div className="col-6">
                         <div className="row">
                            <div className="col-12">
-                              <p>Original Estimate</p>
+                              <p>Due Date</p>
                               <input
-                                 className="form-control"
-                                 type="number"
-                                 name="originalEstimate"
-                                 defaultValue={0}
-                                 min={0}
+                                 type="datetime-local"
+                                 id="dueDate"
+                                 name="dueDate"
                                  onChange={handleChange}
-                              />
+                                 className="form-control"
+                              ></input>
                            </div>
                         </div>
                      </div>
@@ -190,20 +189,27 @@ function CreateTaskModal(props) {
                                  }}
                               />
                            </div>
+
                            <div className="col-6">
-                              <p>Time remaining (hours)</p>
+                              <p>Original Estimate (hours)</p>
                               <input
                                  className="form-control"
                                  type="number"
-                                 name="timeTrackingRemaining"
+                                 name="originalEstimate"
                                  defaultValue={0}
                                  min={0}
                                  onChange={(e) => {
                                     setTimeTracking({
                                        ...timeTracking,
-                                       timeTrackingRemaining: e.target.value,
+                                       timeTrackingRemaining: e.target.value - timeTracking.timeTrackingSpent,
                                     });
-                                    setFieldValue("timeTrackingRemaining", e.target.value);
+                                    // handleChange();
+                                    setFieldValue(
+                                       "timeTrackingRemaining",
+                                       e.target.value - timeTracking.timeTrackingSpent
+                                    );
+
+                                    setFieldValue("originalEstimate", e.target.value);
                                  }}
                               />
                            </div>
@@ -256,31 +262,31 @@ function CreateTaskModal(props) {
 }
 
 const CreateTaskWithFormik = withFormik({
-    enableReinitialize: true,
-    mapPropsToValues: (props) => {
-        return {
-            name: '',
-            projectId: 1,
-            type: 'New Task',
-            priority: 'High',
-            timeTrackingSpent: 0,
-            timeTrackingRemaining: 0,
-            originalEstimate: 0,
-            description: '',
-            usersAssign: [],
-            status: 'BACKLOG',
-        }
-    },
+   enableReinitialize: true,
+   mapPropsToValues: (props) => {
+      return {
+         name: "",
+         projectId: 1,
+         type: "New Task",
+         priority: "High",
+         timeTrackingSpent: 0,
+         timeTrackingRemaining: 0,
+         originalEstimate: 0,
+         description: "",
+         usersAssign: [],
+         status: "BACKLOG",
+      };
+   },
 
-    handleSubmit: (values, { setSubmitting, props }) => {
-        setSubmitting(true);
-        props.dispatch({
-            type: CREATE_TASK_SAGA,
-            newTask: { ...values },
-        })
-    },
+   handleSubmit: (values, { setSubmitting, props }) => {
+      setSubmitting(true);
+      props.dispatch({
+         type: CREATE_TASK_SAGA,
+         newTask: { ...values },
+      });
+   },
 
-    displayName: 'Jira Bugs Create Task',
+   displayName: "Tasma Create Task",
 })(CreateTaskModal);
 
 export default connect()(CreateTaskWithFormik);

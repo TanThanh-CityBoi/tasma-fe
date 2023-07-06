@@ -33,7 +33,7 @@ const photoGPT = '/images/avatar/ChatGPT_logo.png'
 export default function MessageChatbot({ text, index }) {
   const currentTime = moment().format('DD/MM/YYYY HH:mm');
   const avatarSrc = index % 2 === 0 ? photoUserChatbot : photoGPT;
-  const avatarName = index % 2 === 0 ? 'User' : 'GPT';
+  const avatarName = index % 2 === 0 ? "User" : "Tasma";
 
   return (
     <WrapperStyled>
