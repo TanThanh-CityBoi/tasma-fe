@@ -12,6 +12,8 @@ function CreateTaskModal(props) {
    const { visible, projects } = useSelector((state) => state.CreateTaskReducer);
    const { members } = useSelector((state) => state.ListMembersReducer);
    const [usersAssign, setUsersAssign] = useState([]);
+   const [reporter, setReporter] = useState({});
+
    const [projectSelected, setProjectSelected] = useState(projects[0]);
 
    const [timeTracking, setTimeTracking] = useState({
@@ -33,10 +35,6 @@ function CreateTaskModal(props) {
    const userOptions = members.map((user, index) => {
       return { value: user.id, label: user.login, key: index };
    });
-
-   // function handleChange(value) {
-   //     console.log(`Selected: ${value}`);
-   // }
 
    const [size, setSize] = React.useState("default");
 
@@ -92,17 +90,17 @@ function CreateTaskModal(props) {
                   </select>
                </div>
                <div className="form-group">
-                  <p>Status</p>
-                  <select name="status" className="form-control" onChange={handleChange}>
-                     <option value="BACKLOG">BACKLOG</option>
-                     <option value="IN PROGRESS">IN PROGRESS</option>
-                     <option value="UNDER REVIEW">UNDER REVIEW</option>
-                     <option value="CANCELLED">CANCELLED</option>
-                     <option value="DONE">DONE</option>
-                  </select>
-               </div>
-               <div className="form-group">
                   <div className="row">
+                     <div className="col-6">
+                        <p>Status</p>
+                        <select name="status" className="form-control" onChange={handleChange}>
+                           <option value="BACKLOG">BACKLOG</option>
+                           <option value="IN PROGRESS">IN PROGRESS</option>
+                           <option value="UNDER REVIEW">UNDER REVIEW</option>
+                           <option value="CANCELLED">CANCELLED</option>
+                           <option value="DONE">DONE</option>
+                        </select>
+                     </div>
                      <div className="col-6">
                         <p>Priority</p>
                         <select name="priority" className="form-control" onChange={handleChange}>
@@ -110,6 +108,26 @@ function CreateTaskModal(props) {
                            <option value={"Medium"}>Medium</option>
                            <option value={"Low"}>Low</option>
                         </select>
+                     </div>
+                  </div>
+               </div>
+               <div className="form-group">
+                  <div className="row">
+                     <div className="col-6">
+                        <p>Reporter</p>
+                        <Select
+                           mode="single"
+                           size={size}
+                           options={userOptions}
+                           placeholder="Please select"
+                           value={reporter}
+                           optionFilterProp="label"
+                           onChange={(value) => {
+                              setReporter(value);
+                              setFieldValue("reporter", value);
+                           }}
+                           style={{ width: "100%" }}
+                        ></Select>
                      </div>
                      <div className="col-6">
                         <p>Task type</p>
