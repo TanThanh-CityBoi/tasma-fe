@@ -8,6 +8,9 @@ export default function PomodoroTimer() {
       setError(true);
     };
 
+    //how to run pomodoro timer:
+    //Down load pomodoro timer here:   https://github.com/PhuocDev/simple_pomodoro.git
+    //run it by Go live in vscode
     return (
       <div>
         {error ? (
