@@ -119,9 +119,9 @@ export default function InviteMemberModal() {
           <DebounceSelect
             mode='multiple'
             name='search-user'
-            label='Tên các thành viên'
+            label="Member's name: "
             value={value}
-            placeholder='Nhập tên thành viên'
+            placeholder='Enter member name'
             fetchOptions={fetchUserList}
             onChange={(newValue) => setValue(newValue)}
             style={{ width: '100%' }}

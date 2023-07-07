@@ -28,6 +28,7 @@ function* createProjectSaga(action) {
                 value: 'false',
                 message: 'Create Project Successfully!',
             });
+      history.push("/project-management");
         }
     } catch (error) {
         console.log('Error Create Project Saga: ', error);

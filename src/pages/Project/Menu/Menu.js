@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import SideBarChat from '../ChatApp/SideBarChat';
 
 
 export default function Menu(props) {
@@ -54,7 +55,6 @@ export default function Menu(props) {
                         <span className="ml-2">Chat Room</span>
                     </div>
                 </NavLink>
-
                 <NavLink to="/chatbot" style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
                     <div style={{ marginBottom: '10px' }}>
                         <i className="fas fa-question-circle"></i>

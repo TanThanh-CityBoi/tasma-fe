@@ -15,28 +15,26 @@ export default function EditProjectDrawer(props) {
     };
 
     return (
-        <>
-            <div>
-                <Drawer
-                    title='Edit Project'
-                    width={720}
-                    onClose={onClose}
-                    visible={visible}
-                    bodyStyle={{ paddingBottom: 80 }}
-                    extra={
-                        <Space>
-                            <Button onClick={onClose}>Cancel</Button>
-                            <Button onClick={onClose} type="primary">
-                                Submit
-                            </Button>
-                        </Space>
-                    }
-                >
-
-                    <EditProject />
-
-                </Drawer>
-            </div>
-        </>
-    )
+       <>
+          <div>
+             <Drawer
+                title="Edit Project"
+                width={720}
+                onClose={onClose}
+                visible={visible}
+                bodyStyle={{ paddingBottom: 80 }}
+                // extra={
+                //     <Space>
+                //         <Button onClick={onClose}>Cancel</Button>
+                //         <Button onClick={onClose} type="primary">
+                //             Submit
+                //         </Button>
+                //     </Space>
+                // }
+             >
+                <EditProject />
+             </Drawer>
+          </div>
+       </>
+    );
 }
