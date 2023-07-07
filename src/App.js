@@ -23,6 +23,7 @@ import Chat from './pages/Project/ChatApp/Chat';
 import { ChatProvider } from './pages/Project/ChatApp/context/chatContext';
 import { UserProvider } from './pages/Project/ChatApp/context/userContext';
 import Chart from './pages/Project/Chart/Chart';
+import PomodoroTimer from './pages/Project/PomodoroTimer/PomodoroTimer';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <AuthTemplate exact path='/login' Component={Login} />
           <AuthTemplate exact path='/register' Component={Register} />
 
+          <JiraBugsTemplate exact path="/pomodoro" Component={PomodoroTimer} title="Tasma Todolist" />
           <JiraBugsTemplate exact path="/chart" Component={Chart} title="Dashboard" />
           <JiraBugsTemplate exact path="/chatapp" Component={Chat} title="Chat Room" />
           <JiraBugsTemplate exact path="/chatbot" Component={ChatBot} title="Ai Support" />

@@ -45,6 +45,12 @@ export default function Menu(props) {
                         <span className="ml-2">Dashboard</span>
                     </div>
                 </NavLink>
+                <NavLink to={`/pomodoro`} style={{ color: '#172B4D' }} activeClassName="active font-weight-bold text-primary">
+                    <div>
+                        <i class="fa fa-check-circle"></i>
+                        <span className="ml-2">Tasma Todo</span>
+                    </div>
+                </NavLink>
             </div >
             <div className="feature">
 
