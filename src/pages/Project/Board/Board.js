@@ -14,6 +14,7 @@ import { AiFillBug } from "react-icons/ai";
 import { MdTask } from "react-icons/md";
 
 export default function Board(props) {
+
    let { project } = useSelector((state) => state.ProjectReducer);
    let { backLog, inProgress, underReview, cancelled, done } = useSelector((state) => state.TaskReducer.tasks);
    const taksList = [

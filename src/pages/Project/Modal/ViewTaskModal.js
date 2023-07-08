@@ -372,6 +372,29 @@ function ViewTaskModal(props) {
                                     onChange={(e) => {
                                        setCommentContent(e.target.value);
                                     }}
+                                    onKeyDown={(event) => {
+                                       if (event.key === "Enter") {
+                                          console.log("Enter click: Comment sending");
+                                          if (commentContent === "") {
+                                             openNotification("error", "Fail!", "Please add a comment...!");
+                                             return;
+                                          }
+                                          let newComment = {
+                                             user: {
+                                                id: userLogin.id,
+                                             },
+                                             task: {
+                                                id: task.id,
+                                             },
+                                             content: commentContent,
+                                          };
+                                          dispatch({
+                                             type: CREATE_COMMENT_SAGA,
+                                             newComment: newComment,
+                                          });
+                                          setCommentContent("");
+                                       }
+                                    }}
                                  />
                               </div>
                               <div>

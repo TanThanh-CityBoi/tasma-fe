@@ -16,6 +16,7 @@ import { USER_LOGIN_LOCAL_STORAGE } from "../../../util/config/constants";
 import dateFormat from "dateformat";
 
 export default function ProjectList(props) {
+
    const projects = useSelector((state) => state.ProjectReducer.projects);
    const usersSearched = useSelector((state) => state.UserReducer.usersSearched);
    const [usernameSearch, setUsernameSearch] = useState("");

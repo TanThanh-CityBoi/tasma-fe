@@ -1,23 +1,25 @@
 import axios from "axios"
-import { ACCESS_TOKEN, SERVER_API_URL } from "../../util/config/constants"
-const id_token = localStorage.getItem(ACCESS_TOKEN);
+import { ACCESS_TOKEN, SERVER_API_URL } from "../../util/config/constants";
 
 export const commentService = {
-    createComment: (newComment) => {
-        return axios({
-            url: `${SERVER_API_URL}/comment/create-comment`,
-            method: 'POST',
-            data: { ...newComment, createdBy: 'Anonymous' },
-            headers: { 'authorization': 'Bearer ' + id_token }
-        })
-    },
+   createComment: (newComment) => {
+      const id_token = localStorage.getItem(ACCESS_TOKEN);
 
-    deleteComment: (commentId) => {
-        return axios({
-            url: `${SERVER_API_URL}/comment/delete?id=${commentId}`,
-            method: 'DELETE',
-            headers: { 'authorization': 'Bearer ' + id_token }
-        })
-    },
+      return axios({
+         url: `${SERVER_API_URL}/comment/create-comment`,
+         method: "POST",
+         data: { ...newComment, createdBy: "Anonymous" },
+         headers: { authorization: "Bearer " + id_token },
+      });
+   },
 
-}
+   deleteComment: (commentId) => {
+      const id_token = localStorage.getItem(ACCESS_TOKEN);
+
+      return axios({
+         url: `${SERVER_API_URL}/comment/delete?id=${commentId}`,
+         method: "DELETE",
+         headers: { authorization: "Bearer " + id_token },
+      });
+   },
+};
