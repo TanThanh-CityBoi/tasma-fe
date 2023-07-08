@@ -494,11 +494,11 @@
 }
 
 .bg-status-UNDER_REVIEW{
-  background-color: yellow !important;
+  background-color: #F9D900 !important;
 }
 
 .bg-status-CANCELLED{
-  background-color: rgba(255, 0, 0, 0.726) !important;
+  background-color: #E50000 !important;
 }
 
 .bg-status-DONE{
