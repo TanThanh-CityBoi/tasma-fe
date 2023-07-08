@@ -43,8 +43,8 @@ import { GET_ALL_PROJECTS_SAGA } from "../../../redux/constants/ProjectConst";
 
 const Colors = {
    BACKLOG: "#c4c5c6",
-   INPROGRESS: "#62a0ce",
-   UNDERREVIEW: "#F9D900",
+   "IN PROGRESS": "#62a0ce",
+   "UNDER REVIEW": "#F9D900",
    CANCELLED: "#E50000",
    DONE: "#5fb03e",
 };
@@ -54,12 +54,19 @@ const Calendar = () => {
    const projects = useSelector((state) => state.ProjectReducer.projects) || [];
    const [currentProject, setCurrentProject] = useState(projects[0] || {});
    const defaultEvents = currentProject?.tasks?.map((task) => {
+      let isAllDay = false;
+      const startDate = new Date(task?.createdDate);
+      const endDate = task.dueDate ? new Date(task?.dueDate) : new Date();
+
+      if (startDate.getDay() == endDate.getDay() && startDate.getMonth() == endDate.getMonth()) {
+         isAllDay = true;
+      }
       return {
          id: task?.id,
          start: task?.createdDate,
          end: task?.dueDate,
          title: task?.name,
-         allDay: true,
+         allDay: isAllDay,
          color: Colors[task?.status || "BACKLOG"],
       };
    });
@@ -122,7 +129,7 @@ const Calendar = () => {
             eventDrop={handleEventDrop}
             editable={true}
             droppable={true}
-            initialEvents={defaultEvents}
+            // initialEvents={defaultEvents}
          />
       </div>
    );
