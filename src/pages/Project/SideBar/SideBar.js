@@ -1,21 +1,20 @@
-import React from 'react'
-import { Avatar } from 'antd'
-import { useDispatch } from 'react-redux'
-import { SHOW_CREATE_TASK_MODAL_SAGA } from '../../../redux/constants/TaskConst';
+import React from "react";
+import { Avatar } from "antd";
+import { useDispatch } from "react-redux";
+import { SHOW_CREATE_TASK_MODAL_SAGA } from "../../../redux/constants/TaskConst";
 
 export default function SideBar(props) {
-    
-    const dispatch = useDispatch();
-    
-    return (
-       <div className="sideBar text-center">
-          <div className="">
-             {/* <div className="text-white mt-4">
+  const dispatch = useDispatch();
+
+  return (
+    <div className="sideBar text-center">
+      <div className="">
+        {/* <div className="text-white mt-4">
                     <i className="fab fa-jira" style={{ fontSize: 28, cursor: 'pointer' }} />
-                </div> */}
+                </div>
 
              <div className="text-white mt-5">
-                {/* <Avatar>T</Avatar>                */}
+                <Avatar>T</Avatar>               
                 <i className="fa fa-search" style={{ fontSize: 18, cursor: "pointer" }} />
              </div>
 
@@ -32,8 +31,8 @@ export default function SideBar(props) {
              </div>
              <div className="text-white mt-4">
                 <i className="fa fa-question-circle" style={{ fontSize: 18, cursor: "pointer" }} />
-             </div>
-          </div>
-       </div>
-    );
+             </div> */}
+      </div>
+    </div>
+  );
 }
