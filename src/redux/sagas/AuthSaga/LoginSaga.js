@@ -1,67 +1,77 @@
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import { LOGIN_DISPATCH_REDUCER, LOGIN_SAGA } from "../../constants/AuthConst";
-import { authService } from '../../../services/AuthService/AuthService';
+import { authService } from "../../../services/AuthService/AuthService";
 import { projectService } from "../../../services/ProjectService/ProjectService";
-import { DISPLAY_LOADING, HIDE_LOADING, LOADING_DELAY } from "../../constants/LoadingConst";
+import {
+  DISPLAY_LOADING,
+  HIDE_LOADING,
+  LOADING_DELAY,
+} from "../../constants/LoadingConst";
 import { GET_ALL_PROJECTS_DISPATCH } from "../../constants/ProjectConst";
-import { ACCESS_TOKEN, STATUS_CODE, USER_LOGIN_LOCAL_STORAGE } from "../../../util/config/constants";
+import {
+  ACCESS_TOKEN,
+  STATUS_CODE,
+  USER_LOGIN_LOCAL_STORAGE,
+} from "../../../util/config/constants";
 import { history } from "../../../util/libs/history";
 import { accountService } from "../../../services/AccountService/AccountService";
 import { openNotification } from "../../../util/notification/notification";
 
 function* loginSaga(action) {
-   let { userLogin } = action;
+  let { userLogin } = action;
 
-   yield put({
-      type: DISPLAY_LOADING,
-   });
+  yield put({
+    type: DISPLAY_LOADING,
+  });
 
-   try {
-      // call api login to retrieving token
-      const { data, status } = yield call(() => authService.login(userLogin));
+  try {
+    // call api login to retrieving token
+    const { data, status } = yield call(() => authService.login(userLogin));
 
-      // if token has been successfully created
-      if (status === STATUS_CODE.CREATED) {
-         localStorage.setItem(ACCESS_TOKEN, data.id_token);
-         const userLogin = yield call(() => accountService.getCurrentUserLogin());
-         yield put({
-            type: LOGIN_DISPATCH_REDUCER,
-            userLoginDispatch: userLogin.data,
-         });
-         localStorage.setItem(USER_LOGIN_LOCAL_STORAGE, JSON.stringify(userLogin.data));
+    // if token has been successfully created
+    if (status === STATUS_CODE.CREATED) {
+      localStorage.setItem(ACCESS_TOKEN, data.id_token);
+      const userLogin = yield call(() => accountService.getCurrentUserLogin());
+      yield put({
+        type: LOGIN_DISPATCH_REDUCER,
+        userLoginDispatch: userLogin.data,
+      });
+      localStorage.setItem(
+        USER_LOGIN_LOCAL_STORAGE,
+        JSON.stringify(userLogin.data)
+      );
 
-         const id_token = localStorage.getItem(USER_LOGIN_LOCAL_STORAGE);
-         console.log("🚀 ~ file: LoginSaga.js:34 ~ function*loginSaga ~ id_token:", id_token);
+      const projectRes = yield call(() => projectService.getAllProjects());
+      if (projectRes.status === STATUS_CODE.SUCCESS) {
+        const firstProjectId = projectRes?.data[0]?.id || null;
 
-         const projectRes = yield call(() => projectService.getAllProjects());
-         if (projectRes.status === STATUS_CODE.SUCCESS) {
-            const firstProjectId = projectRes?.data[0]?.id || null;
-
-            yield put({
-               type: GET_ALL_PROJECTS_DISPATCH,
-               projects: projectRes?.data,
-            });
-            firstProjectId ? history.push(`/project/board/${firstProjectId}`) : history.push("/project-management");
-         } else {
-            yield put({
-               type: GET_ALL_PROJECTS_DISPATCH,
-               projects: [],
-            });
-            history.push("/project-management");
-         }
+        yield put({
+          type: GET_ALL_PROJECTS_DISPATCH,
+          projects: projectRes?.data,
+        });
+        firstProjectId
+          ? history.push(`/project/board/${firstProjectId}`)
+          : history.push("/project-management");
+      } else {
+        yield put({
+          type: GET_ALL_PROJECTS_DISPATCH,
+          projects: [],
+        });
+        history.push("/project-management");
       }
-   } catch (error) {
-      console.log("Error Login Saga: ", error);
-      openNotification("error", "Login Fail!", "Username or password incorrect!");
-   }
+    }
+  } catch (error) {
+    console.log("Error Login Saga: ", error);
+    openNotification("error", "Login Fail!", "Username or password incorrect!");
+  }
 
-   yield delay(LOADING_DELAY);
+  yield delay(LOADING_DELAY);
 
-   yield put({
-      type: HIDE_LOADING,
-   });
+  yield put({
+    type: HIDE_LOADING,
+  });
 }
 
 export function* loginEventListener() {
-    yield takeLatest(LOGIN_SAGA, loginSaga);
+  yield takeLatest(LOGIN_SAGA, loginSaga);
 }
