@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import { UPDATE_USER_SAGA } from "../../redux/constants/UserConst";
 import { USER_LOGIN_LOCAL_STORAGE } from "../../util/config/constants";
 import { openNotification } from "./../../util/notification/notification";
-import firebase from "../../../src/pages/Project/ChatApp/firebase/config";
-import { nanoid } from "nanoid";
+import { CloudinaryConfig } from "./../../util/libs/cloudinary";
+import { TbPhotoSensor2 } from "react-icons/tb";
 
 export default function Account(props) {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function Account(props) {
     };
   }
 
-  const [imgUrl, setImgUrl] = useState("");
+  const [imgUrl, setImgUrl] = useState(userLoginLocal.imageUrl || "");
   const [file, setFile] = useState(null);
 
   const [userLogin, setUserLogin] = useState({
@@ -29,6 +29,7 @@ export default function Account(props) {
       lastName: userLoginLocal.lastName,
       email: userLoginLocal.email,
       newPassword: "",
+      imageUrl: userLoginLocal.imageUrl,
     },
     errors: {
       firstName: "",
@@ -58,41 +59,40 @@ export default function Account(props) {
     }
   };
 
-  const uploadImg = (imgSelected) => {
+  const uploadImg = async (imgSelected) => {
     if (typeof imgSelected === "undefined" || imgSelected === null) {
       openNotification("error", "File is not an image");
       return;
     }
     console.log("Upload ");
 
-    let metadata = {
-      contentType: "image/jpeg",
-    };
-    let uploadTask = firebase
-      .storage()
-      .ref(`avatar-${nanoid()}`)
-      .put(file, metadata);
-    // const storageRef = ref(storage, `avatar-${nanoid()}`);
-    // const uploadTask = uploadBytesResumable(storageRef, imgSelected);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // show progress
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((URL) => {
-          console.log("avatar ---- url: ", URL);
-          setUserLogin({
-            ...userLogin,
-            values: { ...userLogin.values, imageUrl: URL },
-          });
-        });
-      }
+    ///
+    const data = new FormData();
+    data.append("file", file);
+    data.append(
+      "upload_preset",
+      CloudinaryConfig.REACT_APP_CLOUDINARY_UPLOAD_PRESET
     );
+    data.append("cloud_name", CloudinaryConfig.REACT_APP_CLOUDINARY_CLOUD_NAME);
+    data.append("folder", "tasma");
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${CloudinaryConfig.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const res = await response.json();
+      dispatch({
+        type: UPDATE_USER_SAGA,
+        userUpdate: { ...userLogin.values, imageUrl: res.secure_url },
+      });
+      // openNotification("success", "Upload image successfully");
+    } catch (error) {
+      openNotification("error", "Upload image failed");
+    }
   };
 
   const handleOnChange = (e) => {
@@ -141,10 +141,20 @@ export default function Account(props) {
           <label
             htmlFor="input-file"
             className="px-3 py-1"
-            style={{ border: "solid 1px gray" }}
+            style={{ border: "solid 1px #d9d9d9" }}
           >
-            Select a file
+            <TbPhotoSensor2 size={20} />
           </label>
+          <Button
+            style={{ backgroundColor: "#6675df", color: "white" }}
+            onClick={() => {
+              if (imgUrl !== userLoginLocal.imageUrl) {
+                uploadImg(file);
+              }
+            }}
+          >
+            Upload
+          </Button>
           <input
             className="ml-4"
             id="input-file"
@@ -208,9 +218,6 @@ export default function Account(props) {
           <Button
             className="mt-3"
             onClick={async () => {
-              if (imgUrl !== userLoginLocal?.imageUrl) {
-                await uploadImg(file);
-              }
               dispatch({
                 type: UPDATE_USER_SAGA,
                 userUpdate: { ...userLogin.values },

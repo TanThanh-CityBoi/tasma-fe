@@ -17,6 +17,7 @@
     "axios": "^0.24.0",
     "chart.js": "^4.3.0",
     "chartjs-adapter-date-fns": "^3.0.0",
+    "cloudinary-react": "^1.8.1",
     "date-fns": "^2.30.0",
     "dateformat": "^5.0.2",
     "firebase": "^8.6.8",

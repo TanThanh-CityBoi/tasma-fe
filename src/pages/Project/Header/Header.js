@@ -79,10 +79,9 @@ export default function Header(props) {
         <Dropdown overlay={menu}>
           <button className="btn">
             <span>
-              <span className="ml-2 p-1">{userLogin.login}</span>
-              <BsCaretDown />
+              <span className="mr-2 p-1">{userLogin.login}</span>
             </span>
-            <i>
+            <i className="mr-1">
               {userLogin.imageUrl === "" || userLogin.imageUrl === null ? (
                 <Avatar icon={<i className="fa fa-user-alt"></i>} />
               ) : (
@@ -92,6 +91,7 @@ export default function Header(props) {
                 />
               )}
             </i>
+            <BsCaretDown />
           </button>
         </Dropdown>
       </div>
