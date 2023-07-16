@@ -9543,12 +9543,12 @@ react-html-parser@^2.0.2:
 
 react-icons@^4.10.1:
   version "4.10.1"
-  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.10.1.tgz#3f3b5eec1f63c1796f6a26174a1091ca6437a500"
+  resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.10.1.tgz"
   integrity sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==
 
 react-iframe@^1.8.5:
   version "1.8.5"
-  resolved "https://registry.yarnpkg.com/react-iframe/-/react-iframe-1.8.5.tgz#33dc091147c3f2371d0826797f1b5767ff28a56f"
+  resolved "https://registry.npmjs.org/react-iframe/-/react-iframe-1.8.5.tgz"
   integrity sha512-F4cQJGs3ydaG6fJWfuz9yLwOU0Trzl6kttXuUG+vYwosH8enOOFxZWEDQCSbNVO8ayjfYZeqLxEvdvcsSy4GvA==
   dependencies:
     object-assign "^4.1.1"

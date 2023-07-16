@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Typography } from 'antd';
 import styled from 'styled-components';
 import moment from 'moment';
-import 'moment/locale/vi'; // 
+import 'moment/locale/vi'; //
 
 
 const WrapperStyled = styled.div`
@@ -33,7 +33,7 @@ const photoGPT = '/images/avatar/ChatGPT_logo.png'
 export default function MessageChatbot({ text, index }) {
   const currentTime = moment().format('DD/MM/YYYY HH:mm');
   const avatarSrc = index % 2 === 0 ? photoUserChatbot : photoGPT;
-  const avatarName = index % 2 === 0 ? "User" : "Tasma";
+  const avatarName = index % 2 === 0 ? "User" : "TasmaAI";
 
   return (
     <WrapperStyled>
