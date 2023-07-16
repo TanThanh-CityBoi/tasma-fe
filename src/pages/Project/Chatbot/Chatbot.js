@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { styled } from "styled-components";
 import { Button, Tooltip, Avatar, Form, Input, Alert } from "antd";
 import { SendOutlined, WechatOutlined } from "@ant-design/icons";
@@ -85,14 +85,20 @@ const ChatBot = () => {
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
-
+  useEffect(() => {
+    // Load messageList from localStorage on component mount
+    const storedMessageList = localStorage.getItem('chatbotMessageList');
+    if (storedMessageList) {
+      setMessageList(JSON.parse(storedMessageList));
+    }
+  }, []);
   const handleOnSubmit = async () => {
     const newMessage = inputValue.trim(); // Lấy tin nhắn mới từ inputValue và loại bỏ khoảng trắng ở đầu và cuối
     if (newMessage !== "") {
       const updatedMessageList = [...messageList, newMessage]; // Thêm tin nhắn mới vào danh sách tin nhắn
       setMessageList(updatedMessageList); // Cập nhật state danh sách tin nhắn
+      localStorage.setItem('chatbotMessageList', JSON.stringify(updatedMessageList));
       setInputValue(""); // Đặt lại giá trị của inputValue thành chuỗi rỗng
-
       try {
         // setLoading(true)
         // const prompt = `Bạn là một AI chatbot có tên là TasmaAI, nhiệm vụ của bạn là hỗ trợ người dùng
@@ -138,6 +144,7 @@ const ChatBot = () => {
           const updatedMessageListWithAnswer = [...updatedMessageList, answer];
           // setLoading(false)
           setMessageList(updatedMessageListWithAnswer);
+          localStorage.setItem('chatbotMessageList', JSON.stringify(updatedMessageListWithAnswer));
         } else {
           // Handle API error here
           console.error("API error:", response.status);

@@ -42,7 +42,7 @@ function App() {
                <JiraBugsTemplate exact path="/pomodoro" Component={PomodoroTimer} title="Tasma Todolist" />
                <JiraBugsTemplate exact path="/chart" Component={Chart} title="Dashboard" />
                <JiraBugsTemplate exact path="/chatapp" Component={Chat} title="Chat Room" />
-               <JiraBugsTemplate exact path="/chatbot" Component={ChatBot} title="Ai Support" />
+               <JiraBugsTemplate exact path="/chatbot" Component={ChatBot} title="AI Support" />
 
                {/* Jira Bugs Template */}
                <JiraBugsTemplate exact path="/project/board/:id" Component={Board} title="Board" />
