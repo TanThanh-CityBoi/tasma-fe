@@ -4,12 +4,14 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import { SEARCH_USER_SAGA } from "../../../redux/constants/UserConst";
 import { withFormik } from "formik";
-import { GET_LIST_MEMBERS_SAGA } from "../../../redux/constants/ProjectConst";
+import { GET_LIST_MEMBERS_SAGA, GET_ALL_PROJECTS_SAGA } from "../../../redux/constants/ProjectConst";
 import { CREATE_TASK_SAGA } from "../../../redux/constants/TaskConst";
 const { Option } = Select;
 
 function CreateTaskModal(props) {
-   const { visible, projects } = useSelector((state) => state.CreateTaskReducer);
+   const { visible } = useSelector((state) => state.CreateTaskReducer);
+   const projects = useSelector((state) => state.ProjectReducer.projects);
+
    const { members } = useSelector((state) => state.ListMembersReducer);
    const [usersAssign, setUsersAssign] = useState([]);
    const [reporter, setReporter] = useState({});
@@ -30,6 +32,11 @@ function CreateTaskModal(props) {
          type: GET_LIST_MEMBERS_SAGA,
          projectId: projectSelected?.id || 1,
       });
+
+      dispatch({
+         type: GET_ALL_PROJECTS_SAGA,
+      });
+      return () => {};
    }, []);
 
    const userOptions = members.map((user, index) => {
