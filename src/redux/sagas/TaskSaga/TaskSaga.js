@@ -67,6 +67,7 @@ function* createTaskSaga(action) {
         type: GET_ALL_TASKS_BY_PROJECT_SAGA,
         projectId: action.newTask.projectId,
       });
+      yield new Promise((resolve) => setTimeout(resolve, 1000));
       window.location.reload(false);
     }
   } catch (error) {
@@ -177,6 +178,7 @@ function* updateTaskSaga(action) {
       });
 
       openNotification("success", "Success!", "Task has been updated!");
+      yield new Promise((resolve) => setTimeout(resolve, 1000));
       window.location.reload(false);
     }
   } catch (error) {

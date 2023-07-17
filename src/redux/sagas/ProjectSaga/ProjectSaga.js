@@ -121,6 +121,7 @@ function* updateProjectSaga(action) {
           type: GET_ALL_PROJECTS_SAGA,
         });
 
+        yield new Promise((resolve) => setTimeout(resolve, 1000));
         window.location.reload(false);
       }
     }
@@ -151,6 +152,7 @@ function* deleteProjectSaga(action) {
       });
 
       openNotification("success", "Success!", "Project has been deleted!");
+      yield new Promise((resolve) => setTimeout(resolve, 1000));
       window.location.reload(false);
     }
   } catch (error) {
@@ -175,6 +177,7 @@ function* addMemberToProjectSaga(action) {
         type: GET_ALL_PROJECTS_SAGA,
       });
 
+      yield new Promise((resolve) => setTimeout(resolve, 1000));
       window.location.reload(false);
     }
   } catch (error) {
@@ -197,6 +200,7 @@ function* deleteMemberFromProjectSaga(action) {
       });
     }
 
+    yield new Promise((resolve) => setTimeout(resolve, 1000));
     window.location.reload(false);
   } catch (error) {
     console.log("Error Add Member To Project Saga: ", error);

@@ -40,6 +40,7 @@ function* updateUserSaga(action) {
       localStorage.setItem(USER_LOGIN_LOCAL_STORAGE, JSON.stringify(data));
     }
     openNotification("success", "Success!", "Your account has been updated!");
+    yield new Promise((resolve) => setTimeout(resolve, 1000));
     window.location.reload(false);
   } catch (error) {
     console.log("Error Update User Saga: ", error);
