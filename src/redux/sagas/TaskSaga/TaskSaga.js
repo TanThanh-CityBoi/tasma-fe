@@ -178,8 +178,6 @@ function* updateTaskSaga(action) {
       });
 
       openNotification("success", "Success!", "Task has been updated!");
-      yield new Promise((resolve) => setTimeout(resolve, 1000));
-      window.location.reload(false);
     }
   } catch (error) {
     console.log("Error Update Task Saga: ", error);
