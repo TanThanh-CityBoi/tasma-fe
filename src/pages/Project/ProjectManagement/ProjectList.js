@@ -21,7 +21,7 @@ import {
 import { SEARCH_USER_SAGA } from "../../../redux/constants/UserConst";
 import { USER_LOGIN_LOCAL_STORAGE } from "../../../util/config/constants";
 import { FiUserPlus, FiUsers } from "react-icons/fi";
-import { GoSignOut } from "react-icons/go";
+import ConfirmModal from './ConfirmModal'
 import dateFormat from "dateformat";
 
 export default function ProjectList(props) {
@@ -354,7 +354,7 @@ export default function ProjectList(props) {
           </div>
           {userLogin.email === record.createdBy ? (
             <div>
-              <span>
+              {/* <span>
                 <Popconfirm
                   title="Are you sure to delete this project?"
                   onConfirm={() => {
@@ -379,39 +379,35 @@ export default function ProjectList(props) {
                     <DeleteOutlined style={{ fontSize: 18 }} />
                   </span>
                 </Popconfirm>
-              </span>
+              </span> */}
             </div>
           ) : (
             <div>
               <span>
-                <Popconfirm
+                <ConfirmModal 
+                  title={`Leave project: ${record?.name}`}
+                  description="You won't be able to see any information about this project !!"
+                  handleSubmit={()=>{
+                  dispatch({
+                    type: DELETE_MEMBER_FROM_PROJECT_SAGA,
+                    project: {
+                      ...record,
+                      members: record.members.filter(
+                        (item) => item.id !== userLogin.id
+                      ),
+                    },
+                  });
+                }}></ConfirmModal>
+                {/* <Popconfirm
                   title="Leave this project ?  "
                   onConfirm={() => {
-                    dispatch({
-                      type: DELETE_MEMBER_FROM_PROJECT_SAGA,
-                      project: {
-                        ...record,
-                        members: record.members.filter(
-                          (item) => item.id !== userLogin.id
-                        ),
-                      },
-                    });
+                    
                   }}
                   okText="Yes"
                   cancelText="No"
                 >
-                  <span
-                    className="ml-2"
-                    style={{
-                      padding: 6,
-                      borderRadius: "3px",
-                      paddingBottom: 8,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <GoSignOut style={{ fontSize: 18 }} />
-                  </span>
-                </Popconfirm>
+                  
+                </Popconfirm> */}
               </span>
             </div>
           )}

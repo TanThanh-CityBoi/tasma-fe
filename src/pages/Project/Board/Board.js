@@ -16,6 +16,7 @@ import {
 } from "react-icons/fc";
 import { AiFillBug } from "react-icons/ai";
 import { MdTask } from "react-icons/md";
+import { format } from "date-fns";
 
 export default function Board(props) {
   let { project } = useSelector((state) => state.ProjectReducer);
@@ -320,6 +321,10 @@ export default function Board(props) {
                                         <></>
                                       )}
                                     </div>
+                                  </div>
+                                  <div>
+                                    {(task?.dueDate && new Date(task?.dueDate) < new Date() && task?.status !== 'DONE') 
+                                    ? <i style={{ fontSize: "12px", color: "#e91e63"}}>{format(new Date(task?.dueDate), "dd-MM-yyyy HH:mm")}</i> : <></> }
                                   </div>
                                 </li>
                               );
