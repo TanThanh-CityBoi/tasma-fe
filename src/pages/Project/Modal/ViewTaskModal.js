@@ -21,13 +21,13 @@ import { UPDATE_TASK_SAGA } from "../../../redux/constants/TaskConst";
 import { USER_LOGIN_LOCAL_STORAGE } from "../../../util/config/constants";
 import { openNotification } from "../../../util/notification/notification";
 import { format } from "date-fns";
+import { AiOutlineEdit } from "react-icons/ai"
 
 const { Option } = Select;
 
 function ViewTaskModal(props) {
   const { visible, task } = useSelector((state) => state.ViewTaskReducer);
 
-  // const [status, setStatus] = useState(task?.status);
   const [visibleEditTaskName, setVisibleEditTaskName] = useState(false);
   const [taskName, setTaskName] = useState();
   const [description, setDescription] = useState();
@@ -77,9 +77,15 @@ function ViewTaskModal(props) {
               return true;
             })
             .map((user, index) => {
-              return { label: user.login, value: user.id, key: index };
+              return { label: <div>
+                              {user?.firstName ? <><p className="mb-0">{user?.firstName + " " + user?.lastName} </p> 
+                              <span style={{ fontSize: "12px"}}>{user.login}</span> </>: <></>}
+                              </div>,      
+                        value: user.id, 
+                        key: index 
+                      };
             })}
-          style={{ width: "100%", minWidth: "100px" }}
+          style={{ width: "100%", minWidth: "250px" }}
           onSelect={(value, option) => {
             setUsernameSearch(option.label);
             let newUsersAssign = [...task.usersAssign, { id: value }];
@@ -114,9 +120,15 @@ function ViewTaskModal(props) {
             setUsernameSearch(value);
           }}
           options={members.map((user, index) => {
-            return { label: user.login, value: user.id, key: index };
+            return { label: <div>
+                            {user?.firstName ? <><p className="mb-0">{user?.firstName + " " + user?.lastName} </p> 
+                            <span style={{ fontSize: "12px"}}>{user.login}</span> </>: <></>}
+                            </div> , 
+                    value: user.id, 
+                    key: index 
+                  };
           })}
-          style={{ width: "100%", minWidth: "100px" }}
+          style={{ width: "100%", minWidth: "250px" }}
           onSelect={(value, option) => {
             setUsernameSearch(option.label);
             dispatch({
@@ -189,7 +201,6 @@ function ViewTaskModal(props) {
             <div>
               <p style={{ marginBottom: 5, fontSize: 16, color: "#42526E" }}>
                 {comment.user.login}
-                {/* <span>a month ago</span> */}
               </p>
               <p style={{ marginBottom: 0, color: "172B4D" }}>
                 {comment.content}
@@ -267,7 +278,6 @@ function ViewTaskModal(props) {
         title="Task Detail"
         centered
         visible={visible}
-        //  onOk={() => {}}
         onCancel={() => {
           dispatch({
             type: "CLOSE_MODAL_VIEW_TASK",
@@ -557,16 +567,18 @@ function ViewTaskModal(props) {
                   <h6>ASSIGNEES</h6>
                   <div>
                     {usersAssign?.map((user, index) => {
-                      const isLongTag = user.login.length > 10;
+                      const username = user?.firstName || user?.login 
+                      const isLongTag = username.length > 10;
 
                       return (
                         <Tag className="mt-2" key={index}>
-                          <span>
-                            {isLongTag
-                              ? `${user.login.slice(0, 10)}...`
-                              : user.login}
-                          </span>
-                          <i
+                            <span className="">
+                              {isLongTag
+                                ? `${username.slice(0, 10)}...`
+                                : username}
+                            </span>
+
+                            <i
                             className="fa fa-times ml-2"
                             style={{ cursor: "pointer" }}
                             onClick={() => {
@@ -585,6 +597,7 @@ function ViewTaskModal(props) {
                         </Tag>
                       );
                     })}
+                    <br></br>
                     <Popover
                       placement="topLeft"
                       title={"Add Member"}
@@ -592,8 +605,8 @@ function ViewTaskModal(props) {
                       trigger="click"
                     >
                       <Tag
-                        className="site-tag-plus mt-2 "
-                        style={{ cursor: "pointer", minWidth: "100px  " }}
+                        className="site-tag-plus d-flex justify-content-center mt-2"
+                        style={{ cursor: "pointer", width: "100%" }}
                       >
                         <span style={{ color: "#0052CC" }}>
                           <i className="fa fa-plus" /> ADD MORE
@@ -602,24 +615,11 @@ function ViewTaskModal(props) {
                     </Popover>
                   </div>
                 </div>
+
                 <div className="reporter mt-3">
                   <h6>REPORTER</h6>
                   <div>
-                    <div style={{ display: "flex" }} className="item">
-                      <div className="avatar">
-                        <img
-                          src={
-                            task?.reporter?.imageUrl || "/avatars/avatar-10.jpg"
-                          }
-                          alt="avatar.jpg"
-                        />
-                      </div>
-                      <div className="name">
-                        <div className="ml-1 mt-1 pr-1">
-                          {taskReporter || task?.reporter?.login}
-                        </div>
-                      </div>
-                    </div>
+                    
 
                     <Popover
                       placement="topLeft"
@@ -628,18 +628,60 @@ function ViewTaskModal(props) {
                       trigger="click"
                     >
                       <Tag
-                        className="site-tag-plus mt-2 "
-                        style={{ cursor: "pointer", minWidth: "100px  " }}
+                        className="site-tag-plus"
+                        style={{ cursor: "pointer", width: "100%",  background:'#FFF' }}
                       >
-                        <span style={{ color: "#0052CC" }}>
-                          <i className="fa fa-plus" /> CHANGE
-                        </span>
+                        <div className="d-flex justify-content-between">
+                          <div style={{ display: "flex", alignItems: "center", marginRight: "0px", background:'#FFF', padding: "3px 0px" }} className="item">
+                            <div className="avatar">
+                              <img
+                                src={
+                                  task?.reporter?.imageUrl || "/avatars/avatar-10.jpg"
+                                }
+                                alt="avatar.jpg"
+                              />
+                            </div>
+                            <div className="name">
+                              <div className="ml-1 mr-2">
+                                {task?.reporter?.firstName || task?.reporter?.login}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="d-flex align-items-center mr-1 ml-3"><AiOutlineEdit size={20}/></div>
+                        </div>
                       </Tag>
                     </Popover>
                   </div>
                 </div>
 
                 <div className="estimate">
+                  <h6>START DATE</h6>
+                  <Input
+                    type="datetime-local"
+                    name="startDate"
+                    value={
+                      task?.startDate
+                        ? format(new Date(task?.startDate), "yyyy-MM-dd HH:ss")
+                        : ""
+                    }
+                    onChange={(e) => {
+                      let startDate = task?.startDate || 0;
+                      if (e.target.value !== "") {
+                        startDate = e.target.value;
+                      }
+                      dispatch({
+                        type: UPDATE_TASK_SAGA,
+                        taskUpdate: {
+                          ...task,
+                          startDate: startDate,
+                        },
+                      });
+                    }}
+                  />
+                </div>
+
+                <div className="estimate mt-3">
                   <h6>DUE DATE</h6>
                   <Input
                     type="datetime-local"

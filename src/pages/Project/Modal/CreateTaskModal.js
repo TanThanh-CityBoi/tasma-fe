@@ -2,21 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Select, Slider, Button } from "antd";
 import { Editor } from "@tinymce/tinymce-react";
 import { useSelector, useDispatch, connect } from "react-redux";
-import { SEARCH_USER_SAGA } from "../../../redux/constants/UserConst";
-import { withFormik } from "formik";
-import { GET_LIST_MEMBERS_SAGA, GET_ALL_PROJECTS_SAGA } from "../../../redux/constants/ProjectConst";
+import { GET_LIST_MEMBERS_SAGA, GET_ALL_PROJECTS_SAGA, GET_PROJECT_BOARD_SAGA } from "../../../redux/constants/ProjectConst";
 import { CREATE_TASK_SAGA } from "../../../redux/constants/TaskConst";
-const { Option } = Select;
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 function CreateTaskModal(props) {
    const { visible } = useSelector((state) => state.CreateTaskReducer);
-   const projects = useSelector((state) => state.ProjectReducer.projects);
-
+   const { project } = useSelector((state) => state.ProjectReducer);
    const { members } = useSelector((state) => state.ListMembersReducer);
    const [usersAssign, setUsersAssign] = useState([]);
    const [reporter, setReporter] = useState({});
-
-   const [projectSelected, setProjectSelected] = useState(projects[0]);
 
    const [timeTracking, setTimeTracking] = useState({
       timeTrackingSpent: 0,
@@ -25,39 +21,60 @@ function CreateTaskModal(props) {
 
    const dispatch = useDispatch();
 
-   const { values, handleChange, handleSubmit, setFieldValue } = props;
-
    useEffect(() => {
       dispatch({
          type: GET_LIST_MEMBERS_SAGA,
-         projectId: projectSelected?.id || 1,
+         projectId: project?.id,
       });
 
-      dispatch({
-         type: GET_ALL_PROJECTS_SAGA,
-      });
       return () => {};
-   }, []);
+   }, [project]);
 
    const userOptions = members.map((user, index) => {
-      return { value: user.id, label: user.login, key: index };
+      return { 
+         value: user.id, 
+         label: <div>
+               {user?.firstName ? <><p className="mb-0">{user?.firstName + " " + user?.lastName} </p> 
+               <span style={{ fontSize: "12px"}}>{user.login}</span> </>: <></>}
+               </div>, 
+         key: index 
+      };
    });
 
    const [size, setSize] = React.useState("default");
 
-   const handleSizeChange = (e) => {
-      setSize(e.target.value);
-   };
-
-   const renderProjectOptions = () => {
-      return projects.map((project, index) => {
-         return (
-            <option value={project.id} key={index}>
-               {project.name}
-            </option>
-         );
+   const handleSubmit = (values) => {
+      
+      dispatch({
+         type: CREATE_TASK_SAGA,
+         newTask: { ...values },
       });
    };
+
+   const formik = useFormik({
+      validateOnChange: true,
+      validateOnBlur: true,
+      validateOnMount: false,
+      initialValues: {
+         name: "",
+         type: "New Task",
+         priority: "High",
+         timeTrackingSpent: 0,
+         timeTrackingRemaining: 0,
+         originalEstimate: 0,
+         description: "",
+         usersAssign: [],
+         startDate: "",
+         dueDate: "",
+         status: "BACKLOG",
+      },
+      validationSchema: Yup.object({
+         name: Yup.string().required('Task name is required'),
+      }),
+      onSubmit: (values) => {
+         handleSubmit({...values, projectId: project?.id});
+      },
+    });
 
    return (
       <>
@@ -74,33 +91,19 @@ function CreateTaskModal(props) {
             footer={[]}
             width={1000}
          >
-            <form className="container" onSubmit={handleSubmit}>
+            <form className="container" onSubmit={formik.handleSubmit}>
                <div className="form-group">
                   <p>Name</p>
-                  <input className="form-control" type="text" name="name" required="required" onChange={handleChange} />
-               </div>
-               <div className="form-group">
-                  <p>Project</p>
-                  <select
-                     name="projectId"
-                     className="form-control"
-                     onChange={(e) => {
-                        setFieldValue("projectId", e.target.value);
-                        setUsersAssign([]);
-                        dispatch({
-                           type: GET_LIST_MEMBERS_SAGA,
-                           projectId: e.target.value,
-                        });
-                     }}
-                  >
-                     {renderProjectOptions()}
-                  </select>
+                  <input className="form-control" type="text" name="name" required="required" onChange={formik.handleChange} />
+                  {formik.errors.name && formik.touched.name && (
+                     <div className="d-flex text-danger">{formik.errors.name}</div>
+                  )}
                </div>
                <div className="form-group">
                   <div className="row">
                      <div className="col-6">
                         <p>Status</p>
-                        <select name="status" className="form-control" onChange={handleChange}>
+                        <select name="status" className="form-control" onChange={formik.handleChange}>
                            <option value="BACKLOG">BACKLOG</option>
                            <option value="IN PROGRESS">IN PROGRESS</option>
                            <option value="UNDER REVIEW">UNDER REVIEW</option>
@@ -110,7 +113,7 @@ function CreateTaskModal(props) {
                      </div>
                      <div className="col-6">
                         <p>Priority</p>
-                        <select name="priority" className="form-control" onChange={handleChange}>
+                        <select name="priority" className="form-control" onChange={formik.handleChange}>
                            <option value={"High"}>High</option>
                            <option value={"Medium"}>Medium</option>
                            <option value={"Low"}>Low</option>
@@ -131,14 +134,14 @@ function CreateTaskModal(props) {
                            optionFilterProp="label"
                            onChange={(value) => {
                               setReporter(value);
-                              setFieldValue("reporter", value);
+                              formik.setFieldValue("reporter", value);
                            }}
                            style={{ width: "100%" }}
                         ></Select>
                      </div>
                      <div className="col-6">
                         <p>Task type</p>
-                        <select className="form-control" name="type" onChange={handleChange}>
+                        <select className="form-control" name="type" onChange={formik.handleChange}>
                            <option value={"New Task"}>New Task</option>
                            <option value={"Bugs"}>Bugs</option>
                         </select>
@@ -158,7 +161,7 @@ function CreateTaskModal(props) {
                            optionFilterProp="label"
                            onChange={(values) => {
                               setUsersAssign(values);
-                              setFieldValue("usersAssign", values);
+                              formik.setFieldValue("usersAssign", values);
                            }}
                            style={{ width: "100%" }}
                         ></Select>
@@ -183,13 +186,23 @@ function CreateTaskModal(props) {
                   <div className="row mt-2">
                      <div className="col-6">
                         <div className="row">
-                           <div className="col-12">
+                           <div className="col-6">
+                              <p>Start Date</p>
+                              <input
+                                 type="datetime-local"
+                                 id="startDate"
+                                 name="startDate"
+                                 onChange={formik.handleChange}
+                                 className="form-control"
+                              ></input>
+                           </div>
+                           <div className="col-6">
                               <p>Due Date</p>
                               <input
                                  type="datetime-local"
                                  id="dueDate"
                                  name="dueDate"
-                                 onChange={handleChange}
+                                 onChange={formik.handleChange}
                                  className="form-control"
                               ></input>
                            </div>
@@ -210,7 +223,7 @@ function CreateTaskModal(props) {
                                        ...timeTracking,
                                        timeTrackingSpent: e.target.value,
                                     });
-                                    setFieldValue("timeTrackingSpent", e.target.value);
+                                    formik.setFieldValue("timeTrackingSpent", e.target.value);
                                  }}
                               />
                            </div>
@@ -228,13 +241,12 @@ function CreateTaskModal(props) {
                                        ...timeTracking,
                                        timeTrackingRemaining: e.target.value - timeTracking.timeTrackingSpent,
                                     });
-                                    // handleChange();
-                                    setFieldValue(
+                                    formik.setFieldValue(
                                        "timeTrackingRemaining",
                                        e.target.value - timeTracking.timeTrackingSpent
                                     );
 
-                                    setFieldValue("originalEstimate", e.target.value);
+                                    formik.setFieldValue("originalEstimate", e.target.value);
                                  }}
                               />
                            </div>
@@ -261,7 +273,7 @@ function CreateTaskModal(props) {
                         content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                      }}
                      onEditorChange={(content, editor) => {
-                        setFieldValue("description", content);
+                        formik.setFieldValue("description", content);
                      }}
                   />
                </div>
@@ -269,8 +281,9 @@ function CreateTaskModal(props) {
                   <button type="submit" className="btn btn-primary">
                      Save
                   </button>
-                  <Button
-                     className="ml-2"
+                  <button
+                     className="ml-2 btn btn-secondary"
+                     style={{background: "#FFF", color: "#000"}}
                      onClick={() => {
                         dispatch({
                            type: "HIDDEN_CREATE_TASK_MODAL",
@@ -278,7 +291,7 @@ function CreateTaskModal(props) {
                      }}
                   >
                      Cancel
-                  </Button>
+                  </button>
                </div>
             </form>
          </Modal>
@@ -286,32 +299,4 @@ function CreateTaskModal(props) {
    );
 }
 
-const CreateTaskWithFormik = withFormik({
-   enableReinitialize: true,
-   mapPropsToValues: (props) => {
-      return {
-         name: "",
-         projectId: 1,
-         type: "New Task",
-         priority: "High",
-         timeTrackingSpent: 0,
-         timeTrackingRemaining: 0,
-         originalEstimate: 0,
-         description: "",
-         usersAssign: [],
-         status: "BACKLOG",
-      };
-   },
-
-   handleSubmit: (values, { setSubmitting, props }) => {
-      setSubmitting(true);
-      props.dispatch({
-         type: CREATE_TASK_SAGA,
-         newTask: { ...values },
-      });
-   },
-
-   displayName: "Tasma Create Task",
-})(CreateTaskModal);
-
-export default connect()(CreateTaskWithFormik);
+export default CreateTaskModal;

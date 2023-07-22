@@ -5,41 +5,6 @@ import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction";
 import { useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PROJECTS_SAGA } from "../../../redux/constants/ProjectConst";
-// const defaultEvents = [
-//    {
-//       id: "aahahahhahah",
-//       start: "2023-06-08T13:00",
-//       end: "2023-06-18T13:45",
-//       title: "Lunch @ Butcher's",
-//       allDay: false,
-//       color: "#009788",
-//       // url: "url click ", // Có thể xài thằng này để navigate tới cái trang edit sự kiện ( nhưng cũng có thể open modal bằng thằng event onClick, mày tự implement nha.)
-//    },
-//    {
-//       id: 2,
-//       start: "2023-06-04T15:00",
-//       end: "2023-06-24T16:00",
-//       title: "General orientation",
-//       allDay: false,
-//       color: "#ff9900",
-//    },
-//    {
-//       id: 3,
-//       start: "2023-06-23T18:00",
-//       end: "2023-06-29T22:00",
-//       title: "Dexter BD",
-//       allDay: false,
-//       color: "#3f51b5",
-//    },
-//    {
-//       id: 4,
-//       start: "2023-06-24T10:30",
-//       end: "2023-06-25T11:30",
-//       title: "Stakeholder mtg.",
-//       allDay: false,
-//       color: "#f44437",
-//    },
-// ];
 
 const Colors = {
   BACKLOG: "#c4c5c6",
@@ -66,7 +31,7 @@ const Calendar = () => {
     }
     return {
       id: task?.id,
-      start: task?.createdDate,
+      start: task?.startDate,
       end: task?.dueDate,
       title: task?.name,
       allDay: isAllDay,

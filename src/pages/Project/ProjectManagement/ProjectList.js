@@ -93,10 +93,6 @@ export default function ProjectList(props) {
             setUsernameSearch(value);
           }}
           options={
-            // usersSearched?.map((user, index) => {
-            //     return { label: user.login, value: user.id, key: index }
-            // })
-
             usersSearched
               ?.filter((user) => {
                 let index = record.members.findIndex(
@@ -108,10 +104,15 @@ export default function ProjectList(props) {
                 return true;
               })
               .map((user, index) => {
-                return { label: user.login, value: user.id, key: index };
+                return {label: <div>
+                                {user?.firstName ? <><p className="mb-0">{user?.firstName + " " + user?.lastName} </p> 
+                                <span style={{ fontSize: "12px"}}>{user.login}</span> </>: <></>}
+                                </div>, 
+                        value: user.id, 
+                        key: index };
               })
           }
-          style={{ width: "100%", minWidth: "100px" }}
+          style={{ width: "100%", minWidth: "250px" }}
           onSelect={(value, option) => {
             setUsernameSearch(option.label);
             dispatch({
@@ -161,14 +162,6 @@ export default function ProjectList(props) {
       sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
       ellipsis: true,
     },
-    //  {
-    //    title: "URL",
-    //    dataIndex: "url",
-    //    key: "url",
-    //      sorter: (a, b) => a.url.length - b.url.length,
-    //    sortOrder: sortedInfo.columnKey === "url" && sortedInfo.order,
-    //    ellipsis: true,
-    //  },
     {
       title: "Category",
       dataIndex: "projectCategoryName",
@@ -179,9 +172,6 @@ export default function ProjectList(props) {
       ],
       filteredValue: filteredInfo.projectCategoryName || null,
       onFilter: (value, record) => record.projectCategoryName.includes(value),
-      // sorter: (a, b) => a.projectCategoryName.length - b.projectCategoryName.length,
-      // sortOrder:
-      //   sortedInfo.columnKey === "projectCategoryName" && sortedInfo.order,
       ellipsis: true,
     },
     {
@@ -252,7 +242,11 @@ export default function ProjectList(props) {
                                 <Avatar src={member.imageUrl} key={index} />
                               )}
                             </td>
-                            <td>{member.login}</td>
+                            <td>{<div>
+                                {member?.firstName ? <><p className="mb-0">{member?.firstName + " " + member?.lastName} </p> 
+                                <span style={{ fontSize: "12px"}}>{member.login}</span> </>: <></>}
+                                </div>}
+                            </td>
                             <td>
                               {record?.createdBy !== userLogin?.email ? (
                                 <></>

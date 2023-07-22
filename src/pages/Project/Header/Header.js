@@ -5,10 +5,7 @@ import { USER_LOGIN_LOCAL_STORAGE } from "../../../util/config/constants";
 import { history } from "../../../util/libs/history";
 
 export default function Header(props) {
-  // const handleButtonClick = (e) => {
-  //     message.info('Click on left button.');
-  //     console.log('click left button', e);
-  // }
+
   let userLogin = {
     login: "Account",
     imageUrl: "",
@@ -67,7 +64,6 @@ export default function Header(props) {
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb" style={{ backgroundColor: "white" }}>
             <li className="breadcrumb-item">Tasma</li>
-            {/* <li className="breadcrumb-item">Project</li> */}
             <li className="breadcrumb-item active" aria-current="page">
               {props.title}
             </li>
@@ -79,7 +75,7 @@ export default function Header(props) {
         <Dropdown overlay={menu}>
           <button className="btn">
             <span>
-              <span className="mr-2 p-1">{userLogin.login}</span>
+              <span className="mr-2 p-1">{userLogin?.firstName ? userLogin?.firstName + " " + userLogin?.lastName : userLogin.login}</span>
             </span>
             <i className="mr-1">
               {userLogin.imageUrl === "" || userLogin.imageUrl === null ? (

@@ -4,14 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PROJECTS_SAGA } from "../../../redux/constants/ProjectConst";
 
 const TaskStatusChart = () => {
-   // Mock data
-   //  const mockData = [
-   //     { project: "Project A", completedTaskCount: 8, incompletedTaskCount: 2 },
-   //     { project: "Project B", completedTaskCount: 5, incompletedTaskCount: 3 },
-   //     { project: "Project C", completedTaskCount: 10, incompletedTaskCount: 1 },
-   //     { project: "Project D", completedTaskCount: 12, incompletedTaskCount: 4 },
-   //     { project: "Project E", completedTaskCount: 6, incompletedTaskCount: 2 },
-   //  ];
+   
    const mockData = [];
    const dispatch = useDispatch();
 

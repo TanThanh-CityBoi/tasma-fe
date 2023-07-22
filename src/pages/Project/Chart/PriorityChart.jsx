@@ -4,46 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PROJECTS_SAGA } from "../../../redux/constants/ProjectConst";
 
 const PriorityChart = () => {
-   // Mock data
-   // const mockData = [
-   //   {
-   //     projectName: 'Project 1',
-   //     highPriority: 5,
-   //     mediumPriority: 3,
-   //     lowPriority: 2,
-   //   },
-   //   {
-   //     projectName: 'Project 2',
-   //     highPriority: 8,
-   //     mediumPriority: 6,
-   //     lowPriority: 4,
-   //   },
-   //   {
-   //     projectName: 'Project 3',
-   //     highPriority: 3,
-   //     mediumPriority: 2,
-   //     lowPriority: 1,
-   //   },
-   //   {
-   //       projectName: 'Project 4',
-   //       highPriority: 1,
-   //       mediumPriority: 4,
-   //       lowPriority: 5,
-   //   },
-   //   {
-   //       projectName: 'Project 5',
-   //       highPriority: 7,
-   //       mediumPriority: 1,
-   //       lowPriority: 12,
-   //   },
-   // ];
 
    const mockData = [];
    const dispatch = useDispatch();
 
    const projects = useSelector((state) => state.ProjectReducer.projects);
    projects.map((project) => {
-      const highPriority = project?.tasks.reduce((total, x) => (x.status === "High" ? total + 1 : total), 0);
+      const highPriority = project?.tasks.reduce((total, x) => (x.priority === "High" ? total + 1 : total), 0);
       const mediumPriority = project?.tasks.reduce((total, x) => (x.priority === "Medium" ? total + 1 : total), 0);
       const lowPriority = project?.tasks.length - highPriority;
       mockData.push({

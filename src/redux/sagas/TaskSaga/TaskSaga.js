@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import { projectService } from "../../../services/ProjectService/ProjectService";
 import { taskService } from "../../../services/TaskService/TaskService";
@@ -22,11 +21,11 @@ import {
 
 function* showCreateTaskModalSaga(action) {
   try {
-    const projects = yield call(() => projectService.getAllProjectsForSelect());
+    const project = yield call(() => projectService.getProjectDetail(action?.projectId));
 
     yield put({
       type: "SHOW_CREATE_TASK_MODAL",
-      projects: projects.data,
+      project: project.data,
     });
   } catch (error) {
     console.log("Error Create Task Saga: ", error);
@@ -67,8 +66,6 @@ function* createTaskSaga(action) {
         type: GET_ALL_TASKS_BY_PROJECT_SAGA,
         projectId: action.newTask.projectId,
       });
-      yield new Promise((resolve) => setTimeout(resolve, 1000));
-      window.location.reload(false);
     }
   } catch (error) {
     console.log("Error Create Task Saga: ", error);

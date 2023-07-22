@@ -10,13 +10,11 @@ import { loginAction } from "../../redux/actions/AuthAction/LoginAction";
 //for login to firebase
 import firebase from "firebase/app";
 import "firebase/auth";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { UserContext } from "../Project/ChatApp/context/userContext";
 
 function Login() {
   //login to firebase:
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleLoginToFirebase = (email, password) => {

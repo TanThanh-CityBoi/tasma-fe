@@ -4,8 +4,8 @@ const config = {
 
 export default config;
 
-export const SERVER_API_URL = "https://tasma.work.gd/api";
-// export const SERVER_API_URL = "http://localhost:8081/api";
+// export const SERVER_API_URL = "https://tasma.work.gd/api";
+export const SERVER_API_URL = "http://localhost:8081/api";
 export const ACCESS_TOKEN = "ACCESS_TOKEN";
 export const USER_LOGIN_LOCAL_STORAGE = "USER_LOGIN_LOCAL_STORAGE";
 

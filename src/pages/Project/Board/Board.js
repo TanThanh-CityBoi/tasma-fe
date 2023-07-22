@@ -176,7 +176,7 @@ export default function Board(props) {
                       className={`card-header bg-status-${taskListDetail.key}`}
                       style={{ color: "#f8fafc" }}
                     >
-                      {taskListDetail.status}{" "}
+                      {taskListDetail.status}{" ___ "}
                       <span>{taskListDetail?.items?.length}</span>
                     </div>
                     <ul
@@ -402,6 +402,7 @@ export default function Board(props) {
             onClick={() => {
               dispatch({
                 type: SHOW_CREATE_TASK_MODAL_SAGA,
+                projectId: props.match.params.id
               });
             }}
           >
@@ -413,13 +414,6 @@ export default function Board(props) {
 
       <div className="content" style={{ display: "flex" }}>
         {renderCardTaskList()}
-        {/* {renderAllTaskByStatus(backLog)}
-
-                {renderAllTaskByStatus(selectedForDev)}
-
-                {renderAllTaskByStatus(inProgress)}
-
-                {renderAllTaskByStatus(done)} */}
       </div>
     </div>
   );
