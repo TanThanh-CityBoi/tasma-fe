@@ -4,7 +4,6 @@ import {
   Button,
   Tag,
   Avatar,
-  Popconfirm,
   Popover,
   AutoComplete,
 } from "antd";
@@ -23,6 +22,7 @@ import { USER_LOGIN_LOCAL_STORAGE } from "../../../util/config/constants";
 import { FiUserPlus, FiUsers } from "react-icons/fi";
 import ConfirmModal from './ConfirmModal'
 import dateFormat from "dateformat";
+import DeleteModal from "./DeleteModal";
 
 export default function ProjectList(props) {
   const projects = useSelector((state) => state.ProjectReducer.projects);
@@ -216,6 +216,7 @@ export default function ProjectList(props) {
             <Popover
               placement="topLeft"
               title={"Members"}
+              zIndex={100}
               content={() => {
                 return (
                   <table className="table">
@@ -253,28 +254,20 @@ export default function ProjectList(props) {
                               ) : member?.id === userLogin?.id ? (
                                 <></>
                               ) : (
-                                <Button
-                                  className="ml-1"
-                                  size="small"
-                                  style={{
-                                    fontWeight: "bold",
-                                    fontSize: 15,
-                                    border: "none",
-                                  }}
-                                  onClick={() => {
-                                    dispatch({
-                                      type: DELETE_MEMBER_FROM_PROJECT_SAGA,
-                                      project: {
-                                        ...record,
-                                        members: record.members.filter(
-                                          (item) => item.id !== member.id
-                                        ),
-                                      },
-                                    });
-                                  }}
-                                >
-                                  <DeleteOutlined style={{ fontSize: 18 }} />
-                                </Button>
+                                <DeleteModal 
+                                title={`Remove ${member?.firstName ? member?.firstName + " " + member?.lastName : member?.login } from the project`}
+                                description="This user will be removed from the assigned tasks"
+                                handleClick={()=>{
+                                  dispatch({
+                                    type: DELETE_MEMBER_FROM_PROJECT_SAGA,
+                                    project: {
+                                      ...record,
+                                      members: record.members.filter(
+                                        (item) => item.id !== member.id
+                                      ),
+                                    },
+                                  });
+                                }}></DeleteModal>
                               )}
                             </td>
                           </tr>
@@ -354,32 +347,17 @@ export default function ProjectList(props) {
           </div>
           {userLogin.email === record.createdBy ? (
             <div>
-              {/* <span>
-                <Popconfirm
-                  title="Are you sure to delete this project?"
-                  onConfirm={() => {
-                    dispatch({
-                      type: DELETE_PORJECT_SAGA,
-                      id: record.id,
-                      createdBy: record.createdBy,
-                    });
-                  }}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <span
-                    className="ml-2"
-                    style={{
-                      padding: 6,
-                      borderRadius: "3px",
-                      paddingBottom: 8,
-                      cursor: "pointer",
-                    }}
-                  >
-                    <DeleteOutlined style={{ fontSize: 18 }} />
-                  </span>
-                </Popconfirm>
-              </span> */}
+              <DeleteModal 
+              title={`Remove the project: ${record?.name}`}
+              description="You will not be able to restore this project"
+              handleClick={()=>{
+                dispatch({
+                  type: DELETE_PORJECT_SAGA,
+                  id: record.id,
+                  createdBy: record.createdBy,
+                });
+              }}
+              ></DeleteModal>
             </div>
           ) : (
             <div>
@@ -398,16 +376,6 @@ export default function ProjectList(props) {
                     },
                   });
                 }}></ConfirmModal>
-                {/* <Popconfirm
-                  title="Leave this project ?  "
-                  onConfirm={() => {
-                    
-                  }}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  
-                </Popconfirm> */}
               </span>
             </div>
           )}
